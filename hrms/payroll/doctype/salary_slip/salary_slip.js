@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
+// Copyright (c) 2025, Frappe Technologies Pvt. Ltd. and Contributors
 // License: GNU General Public License v3. See license.txt
 
 frappe.ui.form.on("Salary Slip", {
@@ -9,14 +9,6 @@ frappe.ui.form.on("Salary Slip", {
 				{ fieldname: "amount", columns: 4 },
 			];
 		});
-
-		frm.fields_dict["timesheets"].grid.get_field("time_sheet").get_query = function () {
-			return {
-				filters: {
-					employee: frm.doc.employee,
-				},
-			};
-		};
 
 		frm.set_query("salary_component", "earnings", function () {
 			return {
@@ -209,20 +201,10 @@ frappe.ui.form.on("Salary Slip", {
 	refresh: function (frm) {
 		frm.trigger("toggle_fields");
 
-		var salary_detail_fields = [
-			"formula",
-			"abbr",
-			"statistical_component",
-			"variable_based_on_taxable_salary",
-		];
+		var salary_detail_fields = ["abbr"];
 		frm.fields_dict["earnings"].grid.set_column_disp(salary_detail_fields, false);
 		frm.fields_dict["deductions"].grid.set_column_disp(salary_detail_fields, false);
 		frm.trigger("set_dynamic_labels");
-	},
-
-	salary_slip_based_on_timesheet: function (frm) {
-		frm.trigger("toggle_fields");
-		frm.events.get_emp_and_working_day_details(frm);
 	},
 
 	payroll_frequency: function (frm) {
@@ -248,8 +230,8 @@ frappe.ui.form.on("Salary Slip", {
 
 	toggle_fields: function (frm) {
 		frm.toggle_display(
-			["hourly_wages", "timesheets"],
-			cint(frm.doc.salary_slip_based_on_timesheet) === 1,
+			["payment_days", "total_working_days", "leave_without_pay"],
+			frm.doc.payroll_frequency != "",
 		);
 	},
 
@@ -282,8 +264,8 @@ frappe.ui.form.on("Salary Slip", {
 			const message = `
 				<div class="small text-muted pb-3">
 					${__("Note").bold()}: ${__("Payment Days calculations are based on these Payroll Settings")}:
-					<br><br>${__("Payroll Based On")}: ${__(payroll_based_on).bold()}
-					<br>${__("Consider Unmarked Attendance As")}: ${__(consider_unmarked_attendance_as).bold()}
+					<br><br>${__("Payroll Based On")}: ${payroll_based_on.bold()}
+					<br>${__("Consider Unmarked Attendance As")}: ${consider_unmarked_attendance_as.bold()}
 					<br>${__("Consider Marked Attendance on Holidays")}:
 					${
 						cint(include_holidays_in_total_working_days) &&
@@ -305,15 +287,6 @@ frappe.ui.form.on("Salary Slip", {
 
 			set_field_options("payment_days_calculation_help", message);
 		});
-	},
-});
-
-frappe.ui.form.on("Salary Slip Timesheet", {
-	time_sheet: function (frm) {
-		set_totals(frm);
-	},
-	timesheets_remove: function (frm) {
-		set_totals(frm);
 	},
 });
 
@@ -356,24 +329,7 @@ frappe.ui.form.on("Salary Detail", {
 				callback: function (data) {
 					if (data.message) {
 						var result = data.message;
-						frappe.model.set_value(cdt, cdn, "condition", result.condition);
-						frappe.model.set_value(
-							cdt,
-							cdn,
-							"amount_based_on_formula",
-							result.amount_based_on_formula,
-						);
-						if (result.amount_based_on_formula === 1) {
-							frappe.model.set_value(cdt, cdn, "formula", result.formula);
-						} else {
-							frappe.model.set_value(cdt, cdn, "amount", result.amount);
-						}
-						frappe.model.set_value(
-							cdt,
-							cdn,
-							"statistical_component",
-							result.statistical_component,
-						);
+						frappe.model.set_value(cdt, cdn, "amount", result.amount);
 						frappe.model.set_value(
 							cdt,
 							cdn,
@@ -386,38 +342,11 @@ frappe.ui.form.on("Salary Detail", {
 							"do_not_include_in_total",
 							result.do_not_include_in_total,
 						);
-						frappe.model.set_value(
-							cdt,
-							cdn,
-							"variable_based_on_taxable_salary",
-							result.variable_based_on_taxable_salary,
-						);
-						frappe.model.set_value(
-							cdt,
-							cdn,
-							"is_tax_applicable",
-							result.is_tax_applicable,
-						);
-						frappe.model.set_value(
-							cdt,
-							cdn,
-							"is_flexible_benefit",
-							result.is_flexible_benefit,
-						);
 						refresh_field("earnings");
 						refresh_field("deductions");
 					}
 				},
 			});
-		}
-	},
-
-	amount_based_on_formula: function (frm, cdt, cdn) {
-		var child = locals[cdt][cdn];
-		if (child.amount_based_on_formula === 1) {
-			frappe.model.set_value(cdt, cdn, "amount", null);
-		} else {
-			frappe.model.set_value(cdt, cdn, "formula", null);
 		}
 	},
 });

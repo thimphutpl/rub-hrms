@@ -5,60 +5,76 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "employee",
-  "employee_name",
-  "column_break_3",
-  "department",
-  "designation",
-  "is_salary_withheld"
- ],
- "fields": [
-  {
-   "columns": 2,
-   "fieldname": "employee",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Employee",
-   "options": "Employee"
-  },
-  {
-   "fetch_from": "employee.employee_name",
-   "fieldname": "employee_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Employee Name",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "employee.department",
-   "fieldname": "department",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Department",
-   "options": "Department",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "employee.designation",
-   "fieldname": "designation",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Designation",
-   "read_only": 1
-  },
-  {
-   "columns": 2,
-   "default": "0",
-   "fieldname": "is_salary_withheld",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Is Salary Withheld"
-  }
- ],
+    "employee",
+    "employee_name",
+    "column_break_3",
+    "department",
+    "designation",
+    "column_break_ogss",
+    "salary_slip",
+    "status",
+    "error"
+   ],
+   "fields": [
+    {
+     "columns": 2,
+     "fieldname": "employee",
+     "fieldtype": "Link",
+     "in_list_view": 1,
+     "label": "Employee",
+     "options": "Employee"
+    },
+    {
+     "fetch_from": "employee.employee_name",
+     "fieldname": "employee_name",
+     "fieldtype": "Data",
+     "in_list_view": 1,
+     "label": "Employee Name",
+     "read_only": 1
+    },
+    {
+     "fieldname": "column_break_3",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fetch_from": "employee.department",
+     "fieldname": "department",
+     "fieldtype": "Link",
+     "in_list_view": 1,
+     "label": "Department",
+     "options": "Department",
+     "read_only": 1
+    },
+    {
+     "fetch_from": "employee.designation",
+     "fieldname": "designation",
+     "fieldtype": "Data",
+     "in_list_view": 1,
+     "label": "Designation",
+     "read_only": 1
+    },
+    {
+     "fieldname": "column_break_ogss",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fieldname": "salary_slip",
+     "fieldtype": "Data",
+     "label": "Salary Slip"
+    },
+    {
+     "fieldname": "status",
+     "fieldtype": "Select",
+     "in_list_view": 1,
+     "label": "Status",
+     "options": "\nSuccess\nFailed"
+    },
+    {
+     "fieldname": "error",
+     "fieldtype": "Code",
+     "label": "Error"
+    }
+   ],
  "istable": 1,
  "links": [],
  "modified": "2024-07-22 13:28:40.573807",

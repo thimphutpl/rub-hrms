@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and contributors
+# Copyright (c) 2024, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
 import copy
@@ -12,6 +12,22 @@ from hrms.payroll.utils import sanitize_expression
 
 
 class SalaryComponent(Document):
+	def validate(self):
+		self.validate_abbr()
+
+	def validate_abbr(self):
+		if not self.salary_component_abbr:
+			self.salary_component_abbr = "".join([c[0] for c in self.salary_component.split()]).upper()
+
+		self.salary_component_abbr = self.salary_component_abbr.strip()
+		self.salary_component_abbr = append_number_if_name_exists(
+			"Salary Component",
+			self.salary_component_abbr,
+			"salary_component_abbr",
+			separator="_",
+			filters={"name": ["!=", self.name]},
+		)
+	'''
 	def before_validate(self):
 		self._condition, self.condition = self.condition, sanitize_expression(self.condition)
 		self._formula, self.formula = self.formula, sanitize_expression(self.formula)
@@ -73,8 +89,6 @@ class SalaryComponent(Document):
 
 	@frappe.whitelist()
 	def update_salary_structures(self, field, value, structures=None):
-		is_formula_related = field == "formula"
-
 		if not structures:
 			structures = self.get_structures_to_be_updated()
 
@@ -89,10 +103,6 @@ class SalaryComponent(Document):
 				(d for d in salary_structure.get(f"{self.type.lower()}s") if d.salary_component == self.name),
 				None,
 			)
-			if is_formula_related:
-				value = value if self.amount_based_on_formula else None
-				salary_detail_row.set("amount_based_on_formula", self.amount_based_on_formula)
-
 			salary_detail_row.set(field, value)
 			salary_structure.db_update_all()
 			salary_structure.flags.updater_reference = {
@@ -101,3 +111,4 @@ class SalaryComponent(Document):
 				"label": _("via Salary Component sync"),
 			}
 			salary_structure.save_version()
+	'''

@@ -5,163 +5,175 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "salary_component",
-  "amount",
-  "column_break_3",
-  "from_date",
-  "to_date",
-  "section_break_5",
-  "total_deductible_amount",
-  "bank_name",
-  "bank_branch",
-  "bank_account_type",
-  "reference_number",
-  "column_break_11",
-  "total_deducted_amount",
-  "total_outstanding_amount",
-  "section_break_2",
-  "condition",
-  "column_break_18",
-  "amount_based_on_formula",
-  "formula",
-  "section_break_19",
-  "default_amount",
-  "column_break_24"
- ],
- "fields": [
-  {
-   "columns": 2,
-   "fieldname": "salary_component",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Component",
-   "options": "Salary Component",
-   "reqd": 1,
-   "search_index": 1
-  },
-  {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
-   "depends_on": "eval:doc.is_flexible_benefit != 1",
-   "fieldname": "section_break_2",
-   "fieldtype": "Section Break",
-   "label": "Additional Information"
-  },
-  {
-   "allow_on_submit": 1,
-   "depends_on": "eval:doc.parenttype=='Salary Structure'",
-   "fieldname": "condition",
-   "fieldtype": "Code",
-   "label": "Condition",
-   "options": "PythonExpression"
-  },
-  {
-   "default": "0",
-   "depends_on": "eval:doc.parenttype=='Salary Structure'",
-   "fieldname": "amount_based_on_formula",
-   "fieldtype": "Check",
-   "label": "Amount based on formula"
-  },
-  {
-   "allow_on_submit": 1,
-   "depends_on": "eval:doc.amount_based_on_formula!==0 && doc.parenttype==='Salary Structure'",
-   "fieldname": "formula",
-   "fieldtype": "Code",
-   "label": "Formula",
-   "options": "PythonExpression"
-  },
-  {
-   "columns": 1,
-   "depends_on": "eval:doc.parenttype=='Salary Structure'",
-   "fetch_from": "salary_component.salary_component_abbr",
-   "fieldname": "amount",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Amount",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "depends_on": "eval:doc.parenttype=='Salary Structure'",
-   "fieldname": "default_amount",
-   "fieldtype": "Link",
-   "label": "Reference Type",
-   "options": "DocType",
-   "print_hide": 1
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "section_break_5",
-   "fieldtype": "Section Break",
-   "label": "Deduction Detail"
-  },
-  {
-   "fieldname": "column_break_11",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_19",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_18",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_24",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "from_date",
-   "fieldtype": "Currency",
-   "label": "From Date",
-   "options": "currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "to_date",
-   "fieldtype": "Date",
-   "label": "To Date"
-  },
-  {
-   "fieldname": "total_deductible_amount",
-   "fieldtype": "Data",
-   "label": "Total Deductible Amount"
-  },
-  {
-   "fieldname": "bank_name",
-   "fieldtype": "Data",
-   "label": "Bank Name"
-  },
-  {
-   "fieldname": "bank_branch",
-   "fieldtype": "Data",
-   "label": "Bank Branch"
-  },
-  {
-   "fieldname": "bank_account_type",
-   "fieldtype": "Data",
-   "label": "Bank Account Type"
-  },
-  {
-   "fieldname": "reference_number",
-   "fieldtype": "Data",
-   "label": "Reference Number"
-  },
-  {
-   "fieldname": "total_deducted_amount",
-   "fieldtype": "Currency",
-   "label": "Total Deducted Amount"
-  },
-  {
-   "fieldname": "total_outstanding_amount",
-   "fieldtype": "Currency",
-   "label": "Total Outstanding Amount"
-  }
- ],
+    "salary_component",
+    "amount",
+    "default_amount",
+    "column_break_3",
+    "from_date",
+    "to_date",
+    "additional_amount",
+    "section_break_5",
+    "total_deductible_amount",
+    "bank_name",
+    "bank_branch",
+    "bank_account_type",
+    "reference_number",
+    "column_break_11",
+    "total_deducted_amount",
+    "total_outstanding_amount",
+    "section_break_lula",
+    "reference_type",
+    "reference_name",
+    "column_break_joth",
+    "do_not_include_in_total",
+    "depends_on_payment_days",
+    "abbr"
+   ],
+   "fields": [
+    {
+     "columns": 2,
+     "fieldname": "salary_component",
+     "fieldtype": "Link",
+     "in_list_view": 1,
+     "label": "Component",
+     "options": "Salary Component",
+     "reqd": 1,
+     "search_index": 1
+    },
+    {
+     "fieldname": "column_break_3",
+     "fieldtype": "Column Break"
+    },
+    {
+     "default": "0",
+     "fetch_from": "salary_component.depends_on_payment_days",
+     "fieldname": "depends_on_payment_days",
+     "fieldtype": "Check",
+     "label": "Depends on Payment Days",
+     "print_hide": 1,
+     "read_only": 1
+    },
+    {
+     "fieldname": "amount",
+     "fieldtype": "Currency",
+     "in_list_view": 1,
+     "label": "Amount",
+     "options": "currency"
+    },
+    {
+     "depends_on": "eval:doc.parenttype=='Salary Structure'",
+     "fieldname": "default_amount",
+     "fieldtype": "Currency",
+     "label": "Default Amount",
+     "options": "currency",
+     "print_hide": 1
+    },
+    {
+     "fieldname": "additional_amount",
+     "fieldtype": "Currency",
+     "hidden": 1,
+     "label": "Additional Amount",
+     "no_copy": 1,
+     "options": "currency",
+     "print_hide": 1,
+     "read_only": 1
+    },
+    {
+     "collapsible": 1,
+     "fieldname": "section_break_5",
+     "fieldtype": "Section Break",
+     "label": "Deduction Detail"
+    },
+    {
+     "fieldname": "column_break_11",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fieldname": "from_date",
+     "fieldtype": "Date",
+     "label": "From Date",
+     "print_hide": 1
+    },
+    {
+     "fieldname": "to_date",
+     "fieldtype": "Date",
+     "label": "To Date",
+     "print_hide": 1
+    },
+    {
+     "fieldname": "total_deductible_amount",
+     "fieldtype": "Currency",
+     "label": "Total Deductible Amount"
+    },
+    {
+     "fieldname": "abbr",
+     "fieldtype": "Data",
+     "label": "Abbr"
+    },
+    {
+     "fieldname": "section_break_lula",
+     "fieldtype": "Section Break",
+     "label": "Additional Information"
+    },
+    {
+     "fieldname": "reference_type",
+     "fieldtype": "Link",
+     "label": "Reference Type",
+     "options": "DocType"
+    },
+    {
+     "fieldname": "reference_name",
+     "fieldtype": "Dynamic Link",
+     "label": "Reference Name",
+     "options": "reference_type"
+    },
+    {
+     "fieldname": "total_deducted_amount",
+     "fieldtype": "Currency",
+     "label": "Total Deducted Amount",
+     "read_only": 1
+    },
+    {
+     "fieldname": "total_outstanding_amount",
+     "fieldtype": "Currency",
+     "label": "Total Outstanding Amount",
+     "read_only": 1
+    },
+    {
+     "fieldname": "column_break_joth",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fieldname": "reference_number",
+     "fieldtype": "Data",
+     "label": "Reference Number",
+     "print_hide": 1
+    },
+    {
+     "fieldname": "bank_name",
+     "fieldtype": "Link",
+     "label": "Bank Name",
+     "options": "Bank"
+    },
+    {
+     "fieldname": "bank_branch",
+     "fieldtype": "Link",
+     "label": "Bank Branch",
+     "options": "Bank Branch"
+    },
+    {
+     "fieldname": "bank_account_type",
+     "fieldtype": "Link",
+     "label": "Bank Account Type",
+     "options": "Bank Account Type"
+    },
+    {
+     "default": "0",
+     "fieldname": "do_not_include_in_total",
+     "fieldtype": "Check",
+     "label": "Do not include in Total"
+    }
+   ],
  "istable": 1,
  "links": [],
  "modified": "2025-07-14 11:46:06.213780",

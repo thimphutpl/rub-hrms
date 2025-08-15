@@ -7,124 +7,117 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "disabled",
-  "section_break_2",
-  "effective_from",
-  "company",
-  "column_break_3",
-  "currency",
-  "standard_tax_exemption_amount",
-  "allow_tax_exemption",
-  "amended_from",
-  "taxable_salary_slabs_section",
-  "slabs",
-  "section_break_cajo",
-  "tax_relief_limit",
-  "column_break_pdmy",
-  "taxes_and_charges_on_income_tax_section",
-  "other_taxes_and_charges"
- ],
- "fields": [
-  {
-   "fieldname": "effective_from",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Effective from",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "description": "If enabled, Tax Exemption Declaration will be considered for income tax calculation.",
-   "fieldname": "allow_tax_exemption",
-   "fieldtype": "Check",
-   "label": "Allow Tax Exemption"
-  },
-  {
-   "fieldname": "taxable_salary_slabs_section",
-   "fieldtype": "Section Break",
-   "label": "Taxable Salary Slabs"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Income Tax Slab",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "allow_bulk_edit": 1,
-   "fieldname": "slabs",
-   "fieldtype": "Table",
-   "label": "Taxable Salary Slabs",
-   "options": "Taxable Salary Slab",
-   "reqd": 1
-  },
-  {
-   "allow_on_submit": 1,
-   "default": "0",
-   "fieldname": "disabled",
-   "fieldtype": "Check",
-   "label": "Disabled"
-  },
-  {
-   "fieldname": "standard_tax_exemption_amount",
-   "fieldtype": "Currency",
-   "label": "Standard Tax Exemption Amount",
-   "options": "currency"
-  },
-  {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company"
-  },
-  {
-   "collapsible": 1,
-   "collapsible_depends_on": "other_taxes_and_charges",
-   "fieldname": "taxes_and_charges_on_income_tax_section",
-   "fieldtype": "Section Break",
-   "label": "Taxes and Charges on Income Tax"
-  },
-  {
-   "fieldname": "other_taxes_and_charges",
-   "fieldtype": "Table",
-   "label": "Other Taxes and Charges",
-   "options": "Income Tax Slab Other Charges"
-  },
-  {
-   "fetch_from": "company.default_currency",
-   "fieldname": "currency",
-   "fieldtype": "Link",
-   "label": "Currency",
-   "options": "Currency",
-   "print_hide": 1,
-   "reqd": 1
-  },
-  {
-   "fieldname": "section_break_2",
-   "fieldtype": "Section Break"
-  },
-  {
-   "description": "Maximum annual taxable income eligible for full tax relief. No tax is applied if income does not exceed this limit",
-   "fieldname": "tax_relief_limit",
-   "fieldtype": "Currency",
-   "label": "Taxable Income Relief Threshold Limit"
-  },
-  {
-   "fieldname": "section_break_cajo",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_pdmy",
-   "fieldtype": "Column Break"
-  }
- ],
+    "effective_from",
+    "effective_till",
+    "column_break_iqvj",
+    "company",
+    "currency",
+    "allow_tax_exemption",
+    "standard_tax_exemption_amount",
+    "disabled",
+    "taxable_salary_slabs_section",
+    "slabs",
+    "taxes_and_charges_on_income_tax_section",
+    "other_taxes_and_charges",
+    "section_break_nuoa",
+    "amended_from"
+   ],
+   "fields": [
+    {
+     "fieldname": "effective_from",
+     "fieldtype": "Date",
+     "in_list_view": 1,
+     "label": "Effective From",
+     "reqd": 1
+    },
+    {
+     "default": "0",
+     "description": "If enabled, Tax Exemption Declaration will be considered for income tax calculation.",
+     "fieldname": "allow_tax_exemption",
+     "fieldtype": "Check",
+     "hidden": 1,
+     "label": "Allow Tax Exemption"
+    },
+    {
+     "fieldname": "taxable_salary_slabs_section",
+     "fieldtype": "Section Break",
+     "label": "Taxable Salary Slabs"
+    },
+    {
+     "fieldname": "amended_from",
+     "fieldtype": "Link",
+     "label": "Amended From",
+     "no_copy": 1,
+     "options": "Income Tax Slab",
+     "print_hide": 1,
+     "read_only": 1
+    },
+    {
+     "allow_bulk_edit": 1,
+     "fieldname": "slabs",
+     "fieldtype": "Table",
+     "label": "Taxable Salary Slabs",
+     "options": "Taxable Salary Slab",
+     "reqd": 1
+    },
+    {
+     "allow_on_submit": 1,
+     "default": "0",
+     "fieldname": "disabled",
+     "fieldtype": "Check",
+     "label": "Disabled"
+    },
+    {
+     "fieldname": "standard_tax_exemption_amount",
+     "fieldtype": "Currency",
+     "hidden": 1,
+     "label": "Standard Tax Exemption Amount",
+     "options": "currency"
+    },
+    {
+     "fieldname": "company",
+     "fieldtype": "Link",
+     "label": "Company",
+     "options": "Company"
+    },
+    {
+     "collapsible": 1,
+     "collapsible_depends_on": "other_taxes_and_charges",
+     "fieldname": "taxes_and_charges_on_income_tax_section",
+     "fieldtype": "Section Break",
+     "hidden": 1,
+     "label": "Taxes and Charges on Income Tax"
+    },
+    {
+     "fieldname": "other_taxes_and_charges",
+     "fieldtype": "Table",
+     "label": "Other Taxes and Charges",
+     "options": "Income Tax Slab Other Charges"
+    },
+    {
+     "fetch_from": "company.default_currency",
+     "fieldname": "currency",
+     "fieldtype": "Link",
+     "hidden": 1,
+     "label": "Currency",
+     "options": "Currency",
+     "print_hide": 1
+    },
+    {
+     "fieldname": "column_break_iqvj",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fieldname": "section_break_nuoa",
+     "fieldtype": "Section Break"
+    },
+    {
+     "fieldname": "effective_till",
+     "fieldtype": "Date",
+     "label": "Effective Till",
+     "reqd": 1
+    }
+   ],
  "is_submittable": 1,
  "links": [],
  "modified": "2025-07-22 10:35:07.792880",

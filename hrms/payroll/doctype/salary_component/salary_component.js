@@ -2,6 +2,23 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Salary Component", {
+	onload: function(frm){
+		frm.toggle_reqd(["payment_method"], (frm.doc.type == 'Earning' ? 1 : 0));
+	},
+	refresh: function(frm) {
+		frm.toggle_reqd(["payment_method"], (frm.doc.type == 'Earning' ? 1 : 0));
+	},
+	payment_method: function(frm){
+		if (frm.doc.type == 'Earning'){
+			frm.set_df_property('payment_method', 'reqd', 1)
+		} else {
+			frm.set_df_property('payment_method', 'reqd', 0)
+		}
+	}
+});
+
+/** 
+frappe.ui.form.on("Salary Component", {
 	setup: function (frm) {
 		frm.set_query("account", "accounts", function (doc, cdt, cdn) {
 			var d = locals[cdt][cdn];
@@ -80,7 +97,7 @@ frappe.ui.form.on("Salary Component", {
 	add_update_structure_button: function (frm) {
 		for (const df of ["Condition", "Formula"]) {
 			frm.add_custom_button(
-				__("Sync {0}", [__(df)]),
+				__("Sync {0}", [df]),
 				function () {
 					frappe
 						.call({
@@ -160,3 +177,4 @@ var set_value_for_condition_and_formula = function (frm) {
 	frm.set_value("do_not_include_in_total", 0);
 	frm.set_value("depends_on_payment_days", 0);
 };
+*/

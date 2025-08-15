@@ -1,6 +1,130 @@
-// Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
+// Copyright (c) 2025, Frappe Technologies Pvt. Ltd. and Contributors
 // License: GNU General Public License v3. See license.txt
 
+frappe.ui.form.on("Salary Structure", { 
+	onload: function (frm) {
+		frm.set_query("salary_component", "earnings", function () {
+			return {
+				filters: { type: "earning", company: frm.doc.company },
+				// query: "hrms.payroll.doctype.salary_structure.salary_structure.get_salary_component",
+			};
+		});
+		frm.set_query("salary_component", "deductions", function () {
+			return {
+				filters: { type: "deduction", company: frm.doc.company },
+				// query: "hrms.payroll.doctype.salary_structure.salary_structure.get_salary_component",
+			};
+		});
+	},
+
+	
+	eligible_for_contract_allowance: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_corporate_allowance: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_communication_allowance: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_monthly_variable_compensation: function(frm){
+		calculate_others(frm);
+	},
+
+	// Payment Method
+	contract_allowance_method: function(frm){
+		calculate_others(frm);
+	},
+	corporate_allowance_method: function(frm){
+		calculate_others(frm);
+	},
+	mvc_method: function(frm){
+		calculate_others(frm);
+	},
+
+	// Payment Value
+	contract_allowance: function(frm){
+		calculate_others(frm);
+	},
+	corporate_allowance: function(frm){
+		calculate_others(frm);
+	},
+	mvc: function(frm){
+		calculate_others(frm);
+	},
+
+	eligible_for_contract_allowance: function(frm){
+		calculate_others(frm);
+	},
+
+	// Benefits & Deduction
+	eligible_for_fixed_allowance: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_pf: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_gis: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_sws: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_health_contribution: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_hra:function(frm){
+		calculate_others(frm);
+	},
+	one_off_fixed_payment:function(frm){
+		calculate_others(frm);
+	},
+	employee_pf: function(frm){
+		calculate_others(frm);
+	},
+
+});
+
+function calculate_others(frm) {
+	frappe.call({
+		method: "update_salary_structure",
+		doc: frm.doc,
+		args: {
+			"remove_flag": 0
+		},
+		callback: function (r) {
+			if (r.message) {
+				// earnings
+				if (frm.doc.earnings) {
+					frm.doc.earnings.forEach(function (i, j) {
+						r.message.forEach(function (k, l) {
+							if (k.name == i.name) {
+								cur_frm.get_field("earnings").grid.grid_rows[j].remove();
+							}
+						})
+					})
+				}
+
+				// deductions
+				if(frm.doc.deductions){
+					frm.doc.deductions.forEach(function(i,j){
+						r.message.forEach(function(k,l){
+							if(k.name==i.name){
+								cur_frm.get_field("deductions").grid.grid_rows[j].remove();
+							}
+						})
+					});
+				}
+			}
+			frm.refresh_fields()
+		},
+		freeze: true,
+		freeze_message: "Recalculating ..."
+	})
+}
+
+
+/** 
 frappe.ui.form.on("Salary Structure", {
 	onload: function (frm) {
 		frm.alerted_rows = [];
@@ -175,6 +299,7 @@ frappe.ui.form.on("Salary Structure", {
 
 	salary_slip_based_on_timesheet: function (frm) {
 		frm.trigger("toggle_fields");
+		hrms.set_payroll_frequency_to_null(frm);
 	},
 
 	preview_salary_slip: function (frm) {
@@ -404,3 +529,4 @@ frappe.ui.form.on("Salary Detail", {
 		}
 	},
 });
+*/
