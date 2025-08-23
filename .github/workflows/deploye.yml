@@ -1,0 +1,42 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup SSH with your production server key
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # 3. Verify production server access
+      - name: Test production server connection
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.PRODUCTION_SERVER_USER }}@${{ secrets.PRODUCTION_SERVER_IP }} \
+            "echo '✅ Production server access confirmed'"
+
+      # 4. Deployment commands
+      - name: Deploy application
+        run: |
+          # First deploy to production server
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.PRODUCTION_SERVER_USER }}@${{ secrets.PRODUCTION_SERVER_IP }} \
+            "docker exec erpnext-docker-frappe-1 bash -c 'cd /home/frappe/frappe-bench/apps/hrms && git pull upstream main'"
+
+          # Then deploy to internal server using the key stored on production server
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.PRODUCTION_SERVER_USER }}@${{ secrets.PRODUCTION_SERVER_IP }} \
+            "ssh -i /home/rubovc/key -o StrictHostKeyChecking=no rubovc@172.20.40.11 \
+            'docker exec erpnext-docker-frappe-1 bash -c \"cd /home/frappe/frappe-bench/apps/hrms && git pull upstream main && bench migrate && bench clear-cache\"'"
