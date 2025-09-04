@@ -105,7 +105,6 @@
    "label": "Company",
    "options": "Company",
    "remember_last_selected_value": 1,
-   "reqd": 1,
    "search_index": 1
   },
   {
@@ -115,8 +114,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Branch",
-   "options": "Branch",
-   "reqd": 1
+   "options": "Branch"
   },
   {
    "fetch_from": "branch.cost_center",
@@ -237,7 +235,7 @@
    "default": "0",
    "fieldname": "eligible_for_fixed_allowance",
    "fieldtype": "Check",
-   "label": " Eligible for Fixed Allowance (Increment)"
+   "label": " Eligible for Pay Revision 50%"
   },
   {
    "fieldname": "column_break_mehf",
@@ -406,8 +404,8 @@
  "icon": "fa fa-file-text",
  "idx": 1,
  "links": [],
- "modified": "2025-08-13 09:36:00.069783",
- "modified_by": "Administrator",
+ "modified": "2025-09-01 14:28:05.693102",
+ "modified_by": "sonam.zangmo@thimphutechpark.bt",
  "module": "Payroll",
  "name": "Salary Structure",
  "naming_rule": "Expression (old style)",

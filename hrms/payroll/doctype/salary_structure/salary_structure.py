@@ -668,6 +668,7 @@ class SalaryStructure(Document):
 						
 						if m["field_name"] == "eligible_for_hra":
 							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "hra")
+						
 
 						if m["field_name"] == "one_off_fixed_payment":
 							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "one_off_fixed_payment")
@@ -699,6 +700,7 @@ class SalaryStructure(Document):
 						calc_map.append({'salary_component': m['name'], 'amount': calc_amt})
 				else:
 					# frappe.throw('hello')
+					
 					if self.get(m['field_name']) and m['name'] == 'SWS':
 						sws_amt = flt(settings.get('sws'))
 						# calc_amt = roundoff(sws_amt)
@@ -736,6 +738,7 @@ class SalaryStructure(Document):
 						# calc_amt = roundoff(hra_amount)
 						calc_amt = flt(hra_amount)
 						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
+					
 					else:
 						calc_amt = 0
 					# frappe.throw('hi')
