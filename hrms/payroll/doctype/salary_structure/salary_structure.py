@@ -479,9 +479,14 @@ class SalaryStructure(Document):
 		self.update_salary_structure()
 
 	def validate_dates(self):
-		joining_date, relieving_date = frappe.db.get_value(
-			"Employee", self.employee, ["date_of_joining", "relieving_date"]
-		)
+		values = frappe.db.get_value("Employee", self.employee, ["date_of_joining", "relieving_date"])
+
+		if values:
+			joining_date = values[0]
+			relieving_date = values[1]
+		else:
+			joining_date = None
+			relieving_date = None
 
 		if self.from_date:
 			existing_salary_structure = frappe.db.sql("""
@@ -699,15 +704,9 @@ class SalaryStructure(Document):
 						total_earning += calc_amt
 						calc_map.append({'salary_component': m['name'], 'amount': calc_amt})
 				else:
-					# frappe.throw('hello')
 					
-					if self.get(m['field_name']) and m['name'] == 'SWS':
-						sws_amt = flt(settings.get('sws'))
-						# calc_amt = roundoff(sws_amt)
-						calc_amt = flt(sws_amt)
-						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
-
-					elif self.get(m['field_name']) and m['name'] == 'GIS':
+					
+					if self.get(m['field_name']) and m['name'] == 'GIS':
 						gis_amt = flt(settings.get("gis"))
 						# calc_amt = roundoff(gis_amt)
 						calc_amt = flt(gis_amt)
@@ -718,6 +717,12 @@ class SalaryStructure(Document):
 						pf_amt = (flt(basic_pay)+flt(basic_pay_arrears))*flt(settings.get("employee_pf"))*0.01
 						# calc_amt = roundoff(pf_amt)
 						calc_amt = flt(pf_amt)
+						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
+
+					elif self.get(m['field_name']) and m['name'] == 'SWS':
+						sws_amt = flt(settings.get('sws'))
+						# calc_amt = roundoff(sws_amt)
+						calc_amt = flt(sws_amt)
 						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
 
 					elif self.get(m['field_name']) and m['name'] == 'Health Contribution':
@@ -738,6 +743,7 @@ class SalaryStructure(Document):
 						# calc_amt = roundoff(hra_amount)
 						calc_amt = flt(hra_amount)
 						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
+					
 					
 					else:
 						calc_amt = 0
