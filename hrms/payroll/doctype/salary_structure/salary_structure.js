@@ -82,6 +82,10 @@ frappe.ui.form.on("Salary Structure", {
 	employee_pf: function(frm){
 		calculate_others(frm);
 	},
+	eligible_for_ltc: function(frm){
+		calculate_others(frm);
+	},
+
 
 });
 

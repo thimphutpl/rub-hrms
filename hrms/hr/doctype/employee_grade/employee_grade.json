@@ -12,6 +12,7 @@
   "currency",
   "default_base_pay",
   "dsa",
+  "ltc",
   "column_break_ytuy",
   "fixed_allowance",
   "gis",
@@ -156,12 +157,17 @@
    "fieldname": "one_off_fixed_payment",
    "fieldtype": "Currency",
    "label": "One off FIxed Payment"
+  },
+  {
+   "fieldname": "ltc",
+   "fieldtype": "Currency",
+   "label": "LTC"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-01 14:08:09.618890",
- "modified_by": "sonam.zangmo@thimphutechpark.bt",
+ "modified": "2025-09-09 13:08:37.890178",
+ "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Grade",
  "naming_rule": "Set by user",
