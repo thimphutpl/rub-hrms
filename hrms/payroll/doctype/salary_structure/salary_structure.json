@@ -29,10 +29,10 @@
   "conveyance_allowance_method",
   "conveyance_allowance",
   "column_break_yjrq",
-  "eligible_for_corporate_allowance",
   "corporate_allowance_method",
   "corporate_allowance",
   "eligible_for_fixed_allowance",
+  "eligible_for_corporate_allowance",
   "column_break_mehf",
   "eligible_for_communication_allowance",
   "communication_allowance_method",
@@ -52,6 +52,8 @@
   "column_break_frfr",
   "eligible_for_leave_encashment",
   "eligible_for_ltc",
+  "eligible_for_teaching_allowance",
+  "eligible_for_nonteaching_allowance",
   "earnings_deductions_section",
   "earnings",
   "column_break_ifzc",
@@ -400,12 +402,24 @@
    "label": "Net Pay",
    "options": "currency",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "eligible_for_teaching_allowance",
+   "fieldtype": "Check",
+   "label": "Eligible for Teaching Allowance"
+  },
+  {
+   "default": "0",
+   "fieldname": "eligible_for_nonteaching_allowance",
+   "fieldtype": "Check",
+   "label": "Eligible for Non-Teaching Allowance"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 1,
  "links": [],
- "modified": "2025-09-09 12:21:29.159036",
+ "modified": "2025-09-10 14:27:29.227161",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure",

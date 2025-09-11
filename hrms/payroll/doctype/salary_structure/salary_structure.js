@@ -6,58 +6,60 @@ frappe.ui.form.on("Salary Structure", {
 		frm.set_query("salary_component", "earnings", function () {
 			return {
 				filters: { type: "earning", company: frm.doc.company },
-				// query: "hrms.payroll.doctype.salary_structure.salary_structure.get_salary_component",
 			};
 		});
 		frm.set_query("salary_component", "deductions", function () {
 			return {
 				filters: { type: "deduction", company: frm.doc.company },
-				// query: "hrms.payroll.doctype.salary_structure.salary_structure.get_salary_component",
 			};
 		});
 	},
 
-	
+	// Contract Allowance
 	eligible_for_contract_allowance: function(frm){
 		calculate_others(frm);
 	},
-	eligible_for_corporate_allowance: function(frm){
+	contract_allowance_method: function(frm){
 		calculate_others(frm);
 	},
-	eligible_for_communication_allowance: function(frm){
-		calculate_others(frm);
-	},
-	eligible_for_monthly_variable_compensation: function(frm){
+	contract_allowance: function(frm){
 		calculate_others(frm);
 	},
 
-	// Payment Method
-	contract_allowance_method: function(frm){
+	// Corporate Allowance
+	eligible_for_corporate_allowance: function(frm){
 		calculate_others(frm);
 	},
 	corporate_allowance_method: function(frm){
 		calculate_others(frm);
 	},
-	mvc_method: function(frm){
+	corporate_allowance: function(frm){
 		calculate_others(frm);
 	},
 
-	// Payment Value
-	contract_allowance: function(frm){
+	// Communication Allowance
+	eligible_for_communication_allowance: function(frm){
 		calculate_others(frm);
 	},
-	corporate_allowance: function(frm){
+	communication_allowance_method: function(frm){
+		calculate_others(frm);
+	},
+	communication_allowance: function(frm){
+		calculate_others(frm);
+	},
+
+	// Monthly Variable Compensation
+	eligible_for_monthly_variable_compensation: function(frm){
+		calculate_others(frm);
+	},
+	mvc_method: function(frm){
 		calculate_others(frm);
 	},
 	mvc: function(frm){
 		calculate_others(frm);
 	},
 
-	eligible_for_contract_allowance: function(frm){
-		calculate_others(frm);
-	},
-
-	// Benefits & Deduction
+	// Benefits & Deductions
 	eligible_for_fixed_allowance: function(frm){
 		calculate_others(frm);
 	},
@@ -73,10 +75,10 @@ frappe.ui.form.on("Salary Structure", {
 	eligible_for_health_contribution: function(frm){
 		calculate_others(frm);
 	},
-	eligible_for_hra:function(frm){
+	eligible_for_hra: function(frm){
 		calculate_others(frm);
 	},
-	one_off_fixed_payment:function(frm){
+	one_off_fixed_payment: function(frm){
 		calculate_others(frm);
 	},
 	employee_pf: function(frm){
@@ -85,8 +87,17 @@ frappe.ui.form.on("Salary Structure", {
 	eligible_for_ltc: function(frm){
 		calculate_others(frm);
 	},
-
-
+	eligible_for_teaching_allowance: function(frm){
+		calculate_others(frm);
+	},
+	eligible_for_nonteaching_allowance: function(frm){
+		calculate_others(frm);
+	},
+	
+	// Employee Grade change should also trigger recalculation
+	employee_grade: function(frm) {
+		calculate_others(frm);
+	}
 });
 
 function calculate_others(frm) {
@@ -98,7 +109,6 @@ function calculate_others(frm) {
 		},
 		callback: function (r) {
 			if (r.message) {
-				// earnings
 				if (frm.doc.earnings) {
 					frm.doc.earnings.forEach(function (i, j) {
 						r.message.forEach(function (k, l) {
@@ -109,7 +119,6 @@ function calculate_others(frm) {
 					})
 				}
 
-				// deductions
 				if(frm.doc.deductions){
 					frm.doc.deductions.forEach(function(i,j){
 						r.message.forEach(function(k,l){
@@ -120,14 +129,12 @@ function calculate_others(frm) {
 					});
 				}
 			}
-			frm.refresh_fields()
+			frm.refresh_fields();
 		},
 		freeze: true,
 		freeze_message: "Recalculating ..."
 	})
 }
-
-
 /** 
 frappe.ui.form.on("Salary Structure", {
 	onload: function (frm) {

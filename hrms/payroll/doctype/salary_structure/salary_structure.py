@@ -676,6 +676,12 @@ class SalaryStructure(Document):
 
 						if m["field_name"] == "eligible_for_ltc":
 							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "ltc")
+
+						if m["field_name"] == "eligible_for_teaching_allowance":
+							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "teaching_allowance")
+							
+						if m["field_name"] == "eligible_for_nonteaching_allowance":
+							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "non_teaching_allow")
 						
 
 						if m["field_name"] == "one_off_fixed_payment":
