@@ -1,7 +1,7 @@
 // Copyright (c) 2025, Frappe Technologies Pvt. Ltd. and Contributors
 // License: GNU General Public License v3. See license.txt
 
-frappe.ui.form.on("Salary Structure", { 
+frappe.ui.form.on("Salary Structure", {
 	onload: function (frm) {
 		frm.set_query("salary_component", "earnings", function () {
 			return {
@@ -16,88 +16,91 @@ frappe.ui.form.on("Salary Structure", {
 	},
 
 	// Contract Allowance
-	eligible_for_contract_allowance: function(frm){
+	eligible_for_contract_allowance: function (frm) {
 		calculate_others(frm);
 	},
-	contract_allowance_method: function(frm){
+	contract_allowance_method: function (frm) {
 		calculate_others(frm);
 	},
-	contract_allowance: function(frm){
+	contract_allowance: function (frm) {
 		calculate_others(frm);
 	},
 
 	// Corporate Allowance
-	eligible_for_corporate_allowance: function(frm){
+	eligible_for_corporate_allowance: function (frm) {
 		calculate_others(frm);
 	},
-	corporate_allowance_method: function(frm){
+	corporate_allowance_method: function (frm) {
 		calculate_others(frm);
 	},
-	corporate_allowance: function(frm){
+	corporate_allowance: function (frm) {
 		calculate_others(frm);
 	},
 
 	// Communication Allowance
-	eligible_for_communication_allowance: function(frm){
+	eligible_for_communication_allowance: function (frm) {
 		calculate_others(frm);
 	},
-	communication_allowance_method: function(frm){
+	communication_allowance_method: function (frm) {
 		calculate_others(frm);
 	},
-	communication_allowance: function(frm){
+	communication_allowance: function (frm) {
 		calculate_others(frm);
 	},
 
 	// Monthly Variable Compensation
-	eligible_for_monthly_variable_compensation: function(frm){
+	eligible_for_monthly_variable_compensation: function (frm) {
 		calculate_others(frm);
 	},
-	mvc_method: function(frm){
+	mvc_method: function (frm) {
 		calculate_others(frm);
 	},
-	mvc: function(frm){
+	mvc: function (frm) {
 		calculate_others(frm);
 	},
 
 	// Benefits & Deductions
-	eligible_for_fixed_allowance: function(frm){
+	eligible_for_fixed_allowance: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_pf: function(frm){
+	eligible_for_pf: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_gis: function(frm){
+	eligible_for_gis: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_sws: function(frm){
+	eligible_for_sws: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_health_contribution: function(frm){
+	eligible_for_health_contribution: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_hra: function(frm){
+	eligible_for_hra: function (frm) {
 		calculate_others(frm);
 	},
-	one_off_fixed_payment: function(frm){
+	one_off_fixed_payment: function (frm) {
 		calculate_others(frm);
 	},
-	employee_pf: function(frm){
+	employee_pf: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_ltc: function(frm){
+	eligible_for_ltc: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_teaching_allowance: function(frm){
+	eligible_for_teaching_allowance: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_nonteaching_allowance: function(frm){
-		calculate_others(frm);
-	},
-	
-	// Employee Grade change should also trigger recalculation
-	employee_grade: function(frm) {
+	// eligible_for_nonteaching_allowance: function(frm){
+	// 	calculate_others(frm);
+	// },
+	eligible_for_leave_encashment: function (frm) {
 		calculate_others(frm);
 	}
+
+	// Employee Grade change should also trigger recalculation
+	// employee_grade: function(frm) {
+	// 	calculate_others(frm);
+	// }
 });
 
 function calculate_others(frm) {
@@ -119,10 +122,10 @@ function calculate_others(frm) {
 					})
 				}
 
-				if(frm.doc.deductions){
-					frm.doc.deductions.forEach(function(i,j){
-						r.message.forEach(function(k,l){
-							if(k.name==i.name){
+				if (frm.doc.deductions) {
+					frm.doc.deductions.forEach(function (i, j) {
+						r.message.forEach(function (k, l) {
+							if (k.name == i.name) {
 								cur_frm.get_field("deductions").grid.grid_rows[j].remove();
 							}
 						})

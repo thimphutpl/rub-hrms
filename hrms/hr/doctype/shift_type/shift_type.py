@@ -374,26 +374,50 @@ class ShiftType(Document):
 				).insert(ignore_permissions=True)
 
 
+# def update_last_sync_of_checkin():
+# 	"""Called from hooks"""
+# 	shifts = frappe.get_all(
+# 		"Shift Type",
+# 		filters={"enable_auto_attendance": 1, "auto_update_last_sync": 1},
+# 		fields=["name", "last_sync_of_checkin", "start_time", "end_time"],
+# 	)
+# 	current_datetime = frappe.flags.current_datetime or get_datetime()
+# 	for shift in shifts:
+# 		shift_end = get_actual_shift_end(shift, current_datetime)
+# 		update_last_sync = None
+# 		if shift.last_sync_of_checkin:
+# 			if get_datetime(shift.last_sync_of_checkin) < shift_end < current_datetime:
+# 				update_last_sync = True
+# 		elif shift_end < current_datetime:
+# 			update_last_sync = True
+# 		if update_last_sync:
+# 			frappe.db.set_value(
+# 				"Shift Type", shift.name, "last_sync_of_checkin", shift_end + timedelta(minutes=1)
+# 			)
 def update_last_sync_of_checkin():
-	"""Called from hooks"""
-	shifts = frappe.get_all(
-		"Shift Type",
-		filters={"enable_auto_attendance": 1, "auto_update_last_sync": 1},
-		fields=["name", "last_sync_of_checkin", "start_time", "end_time"],
-	)
-	current_datetime = frappe.flags.current_datetime or get_datetime()
-	for shift in shifts:
-		shift_end = get_actual_shift_end(shift, current_datetime)
-		update_last_sync = None
-		if shift.last_sync_of_checkin:
-			if get_datetime(shift.last_sync_of_checkin) < shift_end < current_datetime:
-				update_last_sync = True
-		elif shift_end < current_datetime:
-			update_last_sync = True
-		if update_last_sync:
-			frappe.db.set_value(
-				"Shift Type", shift.name, "last_sync_of_checkin", shift_end + timedelta(minutes=1)
-			)
+    """Called from hooks"""
+    shifts = frappe.get_all(
+        "Shift Type",
+        filters={"enable_auto_attendance": 1, "auto_update_last_sync": 1},
+        fields=["name", "last_sync_of_checkin", "start_time", "end_time"],
+    )
+    current_datetime = frappe.flags.current_datetime or get_datetime()
+
+    for shift in shifts:
+        shift_end = get_actual_shift_end(shift, current_datetime)
+        update_last_sync = False
+
+        if not shift.last_sync_of_checkin or get_datetime(shift.last_sync_of_checkin) < shift_end:
+            update_last_sync = True
+
+        if update_last_sync:
+            frappe.db.set_value(
+                "Shift Type",
+                shift.name,
+                "last_sync_of_checkin",
+                shift_end + timedelta(minutes=1)
+            )
+
 
 
 def get_actual_shift_end(shift, current_datetime):

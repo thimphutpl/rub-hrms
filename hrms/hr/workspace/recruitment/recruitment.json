@@ -183,8 +183,8 @@
    "type": "Link"
   }
  ],
- "modified": "2025-08-14 09:44:45.821977",
- "modified_by": "lhendup.dorji@thimphutechpark.bt",
+ "modified": "2025-11-25 18:25:10.723227",
+ "modified_by": "Administrator",
  "module": "HR",
  "name": "Recruitment",
  "number_cards": [],
@@ -199,7 +199,7 @@
   }
  ],
  "roles": [],
- "sequence_id": 3.0,
+ "sequence_id": 11.0,
  "shortcuts": [
   {
    "color": "Grey",

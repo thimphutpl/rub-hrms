@@ -517,8 +517,9 @@ class SalaryStructure(Document):
 				)
 
 	def validate_amount(self):
-		if flt(self.net_pay) <= 0: 
-			frappe.throw(_("Net pay cannot be negative"))
+		pass
+		# if flt(self.net_pay) <= 0: 
+		# 	frappe.throw(_("Net pay cannot be negative"))
 
 	def validate_salary_component(self):
 		dup = {}
@@ -676,16 +677,26 @@ class SalaryStructure(Document):
 
 						if m["field_name"] == "eligible_for_ltc":
 							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "ltc")
-
+       
 						if m["field_name"] == "eligible_for_teaching_allowance":
-							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "teaching_allowance")
+							existing_teaching_allowance = next(
+							(d for d in self.get("earnings") if d.salary_component == "Teaching Allowance"),
+							None
+							)
+							if existing_teaching_allowance:
+								calc_amt = flt(existing_teaching_allowance.amount)
+							else:
+								calc_amt = 0.0  
 							
-						if m["field_name"] == "eligible_for_nonteaching_allowance":
-							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "non_teaching_allow")
+						# if m["field_name"] == "eligible_for_nonteaching_allowance":
+						# 	calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "nonteaching_allowance")
 						
 
 						if m["field_name"] == "one_off_fixed_payment":
 							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "one_off_fixed_payment")
+
+						if m["field_name"] == "eligible_for_leave_encashment":
+							calc_amt = frappe.db.get_value("Employee Grade", self.employee_grade, "leave_encashment")
 
 						# if m["field_name"] == "eligible_for_contract_allowance":
 						# 	payment_method = frappe.db.get_value("Salary Component", "Contract Allowance", "payment_method")

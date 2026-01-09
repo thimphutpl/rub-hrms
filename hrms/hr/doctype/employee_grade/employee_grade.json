@@ -13,7 +13,7 @@
   "default_base_pay",
   "dsa",
   "ltc",
-  "teaching_allowance",
+  "leave_encashment",
   "nonteaching_allowance",
   "column_break_ytuy",
   "fixed_allowance",
@@ -166,19 +166,19 @@
    "label": "LTC"
   },
   {
-   "fieldname": "teaching_allowance",
-   "fieldtype": "Currency",
-   "label": "Teaching Allowance"
-  },
-  {
    "fieldname": "nonteaching_allowance",
    "fieldtype": "Currency",
    "label": "Non-Teaching Allowance"
+  },
+  {
+   "fieldname": "leave_encashment",
+   "fieldtype": "Currency",
+   "label": "Leave Encashment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-10 14:15:34.023675",
+ "modified": "2025-12-27 13:33:36.826167",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Grade",

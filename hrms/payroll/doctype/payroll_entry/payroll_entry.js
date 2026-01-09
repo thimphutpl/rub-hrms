@@ -10,7 +10,7 @@ frappe.ui.form.on("Payroll Entry", {
 		frm.ignore_doctypes_on_cancel_all = ["Salary Slip", "Journal Entry"];
 
 		let grid = frm.fields_dict['employees'].grid;
-        grid.cannot_add_rows = true;
+		grid.cannot_add_rows = true;
 
 		if (!frm.doc.posting_date) {
 			frm.doc.posting_date = frappe.datetime.nowdate();
@@ -118,16 +118,23 @@ frappe.ui.form.on("Payroll Entry", {
 			});
 	},
 
+	// create_salary_slips: function (frm) {
+	// 	frm.call({
+	// 		doc: frm.doc,
+	// 		method: "hrms.payroll.doctype.payroll_entry.payroll_entry.create_salary_slips",
+	// 		args: {
+	// 			// method: "create_salary_slips",
+	// 			dt: "Payroll Entry",
+	// 			dn: frm.doc.name,
+	// 		},
+	// 	});
+	// },
 	create_salary_slips: function (frm) {
-		frm.call({
-			doc: frm.doc,
-			method: "run_doc_method",
-			args: {
-				method: "create_salary_slips",
-				dt: "Payroll Entry",
-				dn: frm.doc.name,
-			},
-		});
+		frm.call("create_salary_slips").then(() => {
+			frm.reload_doc();
+
+		})
+
 	},
 
 	add_context_buttons: function (frm) {
@@ -365,7 +372,7 @@ let make_bank_entry = function (frm) {
 			// 	"Journal Entry Account.reference_name": frm.doc.name,
 			// });
 			frappe.set_route(
-				'List', 'Journal Entry', {"reference_type": frm.doc.doctype, "reference_name": frm.doc.name}
+				'List', 'Journal Entry', { "reference_type": frm.doc.doctype, "reference_name": frm.doc.name }
 			);
 		},
 		freeze: true,

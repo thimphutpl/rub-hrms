@@ -40,6 +40,7 @@
   "eligible_for_monthly_variable_compensation",
   "mvc_method",
   "mvc",
+  "eligible_for_leave_encashment",
   "benefits_deductions_section",
   "eligible_for_gis",
   "eligible_for_pf",
@@ -50,7 +51,6 @@
   "eligible_for_overtime_and_payment",
   "one_off_fixed_payment",
   "column_break_frfr",
-  "eligible_for_leave_encashment",
   "eligible_for_ltc",
   "eligible_for_teaching_allowance",
   "eligible_for_nonteaching_allowance",
@@ -87,8 +87,7 @@
    "fieldname": "employee_grade",
    "fieldtype": "Link",
    "label": "Employee Grade",
-   "options": "Employee Grade",
-   "read_only": 1
+   "options": "Employee Grade"
   },
   {
    "fetch_from": "employee.employment_type",
@@ -407,19 +406,21 @@
    "default": "0",
    "fieldname": "eligible_for_teaching_allowance",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Eligible for Teaching Allowance"
   },
   {
    "default": "0",
    "fieldname": "eligible_for_nonteaching_allowance",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Eligible for Non-Teaching Allowance"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 1,
  "links": [],
- "modified": "2025-09-10 14:27:29.227161",
+ "modified": "2025-12-29 15:00:47.790001",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure",
