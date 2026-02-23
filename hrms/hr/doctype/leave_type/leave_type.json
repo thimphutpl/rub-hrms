@@ -12,6 +12,7 @@
   "max_leaves_allowed",
   "applicable_after",
   "max_continuous_days_allowed",
+  "applicable_gender",
   "column_break_3",
   "is_carry_forward",
   "is_lwp",
@@ -230,12 +231,18 @@
    "fieldtype": "Int",
    "label": "Non-Encashable Leaves",
    "non_negative": 1
+  },
+  {
+   "fieldname": "applicable_gender",
+   "fieldtype": "Select",
+   "label": "Applicable Gender",
+   "options": "\nAll\nMale\nFemale"
   }
  ],
  "icon": "fa fa-flag",
  "idx": 1,
  "links": [],
- "modified": "2024-12-18 19:51:44.162375",
+ "modified": "2026-02-23 18:47:21.665594",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Type",
@@ -269,6 +276,7 @@
    "role": "Employee"
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

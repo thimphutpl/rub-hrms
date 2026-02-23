@@ -9,6 +9,7 @@
   "employee_settings",
   "emp_created_by",
   "standard_working_hours",
+  "return_day_dsa",
   "column_break_9",
   "retirement_age",
   "reminders_section",
@@ -52,7 +53,12 @@
   "allow_employee_checkin_from_mobile_app",
   "allow_geolocation_tracking",
   "unlink_payment_section",
-  "unlink_payment_on_cancellation_of_employee_advance"
+  "unlink_payment_on_cancellation_of_employee_advance",
+  "notification_templates_tab",
+  "travel_authorization_section",
+  "travel_claim_approval_notification_template",
+  "column_break_ywbu",
+  "travel_claim_status_notification_template"
  ],
  "fields": [
   {
@@ -336,13 +342,46 @@
    "fieldname": "prevent_self_leave_approval",
    "fieldtype": "Check",
    "label": "Prevent self approval for leaves even if user has permissions"
+  },
+  {
+   "fieldname": "notification_templates_tab",
+   "fieldtype": "Tab Break",
+   "label": "Notification Templates"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "travel_authorization_section",
+   "fieldtype": "Section Break",
+   "label": "Travel Authorization"
+  },
+  {
+   "fieldname": "travel_claim_approval_notification_template",
+   "fieldtype": "Link",
+   "label": "Travel Claim Approval Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "column_break_ywbu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "travel_claim_status_notification_template",
+   "fieldtype": "Link",
+   "label": "Travel Claim Status Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "return_day_dsa",
+   "fieldtype": "Select",
+   "label": "Return Day DSA (%)",
+   "options": "\n100\n70\n50\n20\n0"
   }
  ],
  "icon": "fa fa-cog",
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-01-30 12:41:22.594071",
+ "modified": "2026-02-23 21:28:15.424022",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "HR Settings",
@@ -377,6 +416,7 @@
    "role": "Employee"
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "ASC",
  "states": [],

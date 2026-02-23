@@ -78,21 +78,6 @@ class PromotionEntry(Document):
 			pe_date = self.fiscal_year+"-01-01"
 		elif self.month_name == "July":
 			pe_date = self.fiscal_year+"-07-01"
-		# query =	"""
-		# 	select t1.name as employee, t1.employee_name, t1.department, t1.designation, t1.grade as employee_grade
-		# 	from `tabEmployee` t1
-		# 	where t1.status = 'Active' and
-		# 	employment_type not in ('Contract','Probation')
-		# 	and exists(select 1
-		# 			from `tabEmployee Internal Work History` as t3
-		# 			where t3.parent = t1.name
-		# 			and ifnull(TIMESTAMPDIFF(YEAR, ifnull(t3.from_date, t1.date_of_joining), CURDATE()),0) >= (select next_promotion_years from `tabEmployee Grade` g where g.name = t1.grade and t3.grade = t1.grade)
-		# 	)
-		# 	and t1.promotion_due_date = '{}'
-		# 	and t1.promotion_cycle = '{}'
-		# 	{}
-		# 	order by t1.branch, t1.name
-		# """.format(pe_date, self.month_name, cond)
 		query = """select t1.name as employee, t1.employee_name, t1.department, t1.designation, t1.grade as employee_grade 
 					from `tabEmployee` t1 
 					where t1.status = 'Active' 
@@ -125,22 +110,6 @@ class PromotionEntry(Document):
 					select name from `tabEmployee Internal Work History` where parent = '{0}' and promotion_due_date is not NULL order by idx desc limit 1
                 """.format(e.employee), as_dict = True)
 			if latest:
-				# is_eligible = frappe.db.sql("""
-				# 	select 1
-				# 	from `tabEmployee Internal Work History` t3, `tabEmployee` t1
-				# 	where t3.parent = t1.name
-				# 	and t3.reference_doctype = 'Employee Promotion'
-				# 	and ifnull(TIMESTAMPDIFF(YEAR, t3.from_date, CURDATE()),0) >= (select next_promotion_years from `tabEmployee Grade` g where g.name = t1.grade and t3.grade = t1.grade)
-				# 	and t1.name = '{0}' and t3.name = '{1}'
-                #                 """.format(e.employee, latest[0].name))
-				# is_eligible = frappe.db.sql("""
-				# 	select 1
-				# 	from `tabEmployee Internal Work History` t3, `tabEmployee` t1
-				# 	where t3.parent = t1.name
-				# 	and t3.reference_doctype = 'Employee Promotion'
-				# 	and t3.promotion_due_date = DATE({2})
-				# 	and t1.name = '{0}' and t3.name = '{1}'
-                #                 """.format(e.employee, latest[0].name, pe_date))
 				is_eligible = frappe.db.sql("""
 					select 1
 					from `tabEmployee Internal Work History` t3, `tabEmployee` t1
@@ -503,5 +472,3 @@ def submit_employee_promotions_for_employees(promotion_entry, employee_promotion
 
 	if not_submitted_ep:
 		frappe.msgprint(_("Could not submit some Employee Promotions. List of not submitted promotions: "+str(not_submitted_ep)))
-class PromotionEntry(Document):
-	pass
