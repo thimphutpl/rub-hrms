@@ -101,6 +101,11 @@ def create_employee(source_name, target_doc=None):
 		)
 		data = val.get("data")
 		doclist.set("salutation", data.get('salutation'))
+
+		doclist.set("first_name", data.get('firstName'))
+		doclist.set("middle_name", data.get('middleName'))
+		doclist.set("last_name", data.get('lastName'))
+
 		doclist.set("employee_name", get_full_name(data))
 		doclist.set("status", "Active")
 		doclist.set("date_of_birth", data.get('dob'))
@@ -120,19 +125,17 @@ def create_employee(source_name, target_doc=None):
 		
 		# qualifications
 		qualifications = []
-		for qualification in data.get('qualifications') or []:
-			marks = qualification.get("marks")
-			simplified_marks = []
-			if marks and len(marks) > 0:
-				simplified_marks = [{mark["subjectName"]: mark["mark"]} for mark in marks]
+		for qualification in data.get('qualifications') or []:	
+			marks = qualification.get("marks")  # list of dicts
+			maj_opt_subj = "\n".join(f"{m['subjectName']}: {m['mark']}" for m in marks if 'subjectName' in m and 'mark' in m)
 
 			qualifications.append({
 				"qualification": qualification.get("qualificationType"),
-				"year_of_passing": qualification.get("completionYear"),
+				"year_of_passing": int(qualification.get("completionYear").split("-")[0]) if qualification.get("completionYear") else None,
 				"class_per": qualification.get("percentageObtained"),
 				"level": qualification.get("courseName"),
 				"school_univ": qualification.get("instituteName"),
-				"maj_opt_subj": json.dumps(simplified_marks)
+				"maj_opt_subj": maj_opt_subj
 			})
 		doclist.set("education", qualifications)
 		
@@ -145,7 +148,12 @@ def create_employee(source_name, target_doc=None):
 				"address": experience.get("description"),
 				"total_experience": experience.get("noOfExperience"),
 			})
-		doclist.set("external_work_history", experiences)		
+		doclist.set("external_work_history", experiences)	
+		frappe.msgprint(
+			msg=f"Unable to connect to TheGateway: {doclist.as_dict()}",
+			title="Success",
+			indicator="green"
+		)	
 		return doclist.as_dict()
 	elif response.status_code == 401:
 		frappe.throw("Unauthorized!")
@@ -188,7 +196,7 @@ def get_token():
 	try:
 		settings = frappe.get_single('TheGateway Connectivity')
 		host = settings.host.rstrip('/')
-		url = f"{host}/api/auth/signin"
+		url = f"{host}/api/auth/login"
 		username = settings.username
 		password = settings.get_password('password')
 		payload = {
@@ -198,9 +206,8 @@ def get_token():
 		headers = {
 			'Content-Type': 'application/json'
 		}
-
 		response = requests.post(url, json=payload, headers=headers, timeout=10)
-
+		
 		if response.status_code == 200:
 			try:
 				data = response.json()
@@ -221,6 +228,11 @@ def get_token():
 			frappe.throw(f"Failed to connect to TheGateway: {response.status_code}")
 
 	except requests.exceptions.RequestException as e:
-		logger.error(f"Request to TheGateway failed: {e}")
-		frappe.throw("Unable to connect to TheGateway")
+		frappe.msgprint(
+			msg=f"Unable to connect to TheGateway: {e}",
+			title="Failed",
+			indicator="red"
+		)
+		# logger.error(f"Request to TheGateway failed: {e}")
+		# frappe.throw("Unable to connect to TheGateway")
 

@@ -8,15 +8,15 @@
 // });
 
 frappe.ui.form.on('TheGateway Connectivity', {
-	refresh: function(frm) {
+	refresh: function (frm) {
 
 	},
-	test_connectivity: function(frm){	
+	test_connectivity: function (frm) {
 		return frappe.call({
 			method: "hrms.hr.doctype.selected_candidate.selected_candidate.get_token",
 			callback: function (b) {
-				if (b.message) { 
-					frappe.msgprint("Connection successfull.")
+				if (b.message) {
+					frappe.msgprint("Connection successfull.", b.message)
 				}
 			},
 			freeze: true,
