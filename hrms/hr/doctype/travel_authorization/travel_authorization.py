@@ -36,21 +36,21 @@ class TravelAuthorization(Document):
 		self.set_status()
 		self.make_travel_advance()
 		self.validate_estimated_amount()
-		validate_workflow_states(self)
-		if self.workflow_state != "Approved":
-			notify_workflow_states(self)
+		# validate_workflow_states(self)
+		# if self.workflow_state != "Approved":
+		# 	notify_workflow_states(self)
 
 	def on_update(self):
 		self.check_date_overlap()
 		self.validate_duplicate_entry()
 
 	def on_submit(self):
-		notify_workflow_states(self)
+		# notify_workflow_states(self)
 		if self.advance_amount: 
 			self.post_journal_entry()
 
 	def on_cancel(self):
-		notify_workflow_states(self)
+		# notify_workflow_states(self)
 		self.set_status(update=True)
 
 	def set_status(self, update=False):
