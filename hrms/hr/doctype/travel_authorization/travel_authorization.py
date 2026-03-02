@@ -23,7 +23,7 @@ from frappe.utils import (
 	rounded,
 	nowdate
 )
-from erpnext.custom_workflow import validate_workflow_states, notify_workflow_states
+# from erpnext.custom_workflow import validate_workflow_states, notify_workflow_states
 
 class TravelAuthorization(Document):
 	def validate(self):

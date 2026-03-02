@@ -36,7 +36,7 @@ from hrms.hr.utils import (
 )
 from hrms.mixins.pwa_notifications import PWANotificationsMixin
 from hrms.utils import get_employee_email
-from erpnext.custom_workflow import validate_workflow_states, notify_workflow_states
+# from erpnext.custom_workflow import validate_workflow_states, notify_workflow_states
 
 
 class LeaveDayBlockedError(frappe.ValidationError):
@@ -88,9 +88,9 @@ class LeaveApplication(Document, PWANotificationsMixin):
 		if frappe.db.get_value("Leave Type", self.leave_type, "is_optional_leave"):
 			self.validate_optional_leave()
 		self.validate_applicable_after()
-		validate_workflow_states(self)
-		if self.workflow_state != "Approved":
-			notify_workflow_states(self)
+		# validate_workflow_states(self)
+		# if self.workflow_state != "Approved":
+		# 	notify_workflow_states(self)
 
 	def on_update(self):
 		# if self.status == "Open" and self.docstatus < 1:
@@ -105,7 +105,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 	def on_submit(self):
 		# if self.status in ["Open", "Cancelled"]:
 		# 	frappe.throw(_("Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"))
-		notify_workflow_states(self)
+		# notify_workflow_states(self)
 		self.validate_back_dated_application()
 		self.update_attendance()
 		# self.validate_for_self_approval()
@@ -125,7 +125,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 		# notify leave applier about cancellation
 		# if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
 		# 	self.notify_employee()
-		notify_workflow_states(self)
+		# notify_workflow_states(self)
 		self.cancel_attendance()
 
 		self.publish_update()
