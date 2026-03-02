@@ -132,3 +132,50 @@ def get_officiating_employee(employee):
 			else:
 				flag = False
 	return officiate
+
+@frappe.whitelist()
+def get_approver(employee):
+	deg=frappe.db.get_value("Employee", employee, "designation")
+	if not deg:
+		frappe.throw("Set designation in employee master")
+	if deg=='Chief Executive Officer':
+
+		approver = frappe.db.get_value("Employee", employee, "user_id")
+		frappe.throw(str(approver))
+	else:
+		empid = frappe.db.get_value("Employee", employee, "reports_to")
+		approver = frappe.db.get_value("Employee", empid, "user_id")
+
+
+	return approver
+
+@frappe.whitelist()
+def get_reports_to(employee):
+	
+	deg=frappe.db.get_value("Employee", employee, "designation")
+	if not deg:
+		frappe.throw("Set designation in employee master")
+	if deg=='Chief Executive Officer':
+
+		reports_to = frappe.db.get_value("Employee", employee, "user_id")
+		#frappe.throw(str(approver))
+	else:
+		empid = frappe.db.get_value("Employee", employee, "reports_to")
+		reports_to = frappe.db.get_value("Employee", empid, "user_id")
+	
+	return reports_to
+# @frappe.whitelist()
+# def get_reports_to(employee):
+	
+# 	deg=frappe.db.get_value("Employee", employee, "designation")
+# 	if not deg:
+# 		frappe.throw("Set designation in employee master")
+# 	if deg=='Chief Executive Officer':
+
+# 		reports_to = frappe.db.get_value("Employee", employee, "user_id")
+# 		#frappe.throw(str(approver))
+# 	else:
+# 		empid = frappe.db.get_value("Employee", employee, "reports_to")
+# 		reports_to = frappe.db.get_value("Employee", empid, "user_id")
+	
+# 	return reports_to

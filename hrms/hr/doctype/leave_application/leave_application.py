@@ -36,6 +36,7 @@ from hrms.hr.utils import (
 )
 from hrms.mixins.pwa_notifications import PWANotificationsMixin
 from hrms.utils import get_employee_email
+from erpnext.custom_workflow import validate_workflow_states, notify_workflow_states
 
 
 class LeaveDayBlockedError(frappe.ValidationError):
@@ -87,40 +88,44 @@ class LeaveApplication(Document, PWANotificationsMixin):
 		if frappe.db.get_value("Leave Type", self.leave_type, "is_optional_leave"):
 			self.validate_optional_leave()
 		self.validate_applicable_after()
+		validate_workflow_states(self)
+		if self.workflow_state != "Approved":
+			notify_workflow_states(self)
 
 	def on_update(self):
-		if self.status == "Open" and self.docstatus < 1:
-			# notify leave approver about creation
-			if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
-				self.notify_leave_approver()
+		# if self.status == "Open" and self.docstatus < 1:
+		# 	# notify leave approver about creation
+		# 	if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
+		# 		self.notify_leave_approver()
 
 		share_doc_with_approver(self, self.leave_approver)
 		self.publish_update()
-		self.notify_approval_status()
+		# self.notify_approval_status()
 
 	def on_submit(self):
-		if self.status in ["Open", "Cancelled"]:
-			frappe.throw(_("Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"))
-
+		# if self.status in ["Open", "Cancelled"]:
+		# 	frappe.throw(_("Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"))
+		notify_workflow_states(self)
 		self.validate_back_dated_application()
 		self.update_attendance()
-		self.validate_for_self_approval()
+		# self.validate_for_self_approval()
 
 		# notify leave applier about approval
-		if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
-			self.notify_employee()
+		# if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
+		# 	self.notify_employee()
 
 		self.create_leave_ledger_entry()
 		self.reload()
 
-	def before_cancel(self):
-		self.status = "Cancelled"
+	# def before_cancel(self):
+	# 	self.status = "Cancelled"
 
 	def on_cancel(self):
 		self.create_leave_ledger_entry(submit=False)
 		# notify leave applier about cancellation
-		if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
-			self.notify_employee()
+		# if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
+		# 	self.notify_employee()
+		notify_workflow_states(self)
 		self.cancel_attendance()
 
 		self.publish_update()
@@ -623,82 +628,82 @@ class LeaveApplication(Document, PWANotificationsMixin):
 		if self.half_day == 0:
 			self.half_day_date = None
 
-	def notify_employee(self):
-		employee_email = get_employee_email(self.employee)
+	# def notify_employee(self):
+	# 	employee_email = get_employee_email(self.employee)
 
-		if not employee_email:
-			return
+	# 	if not employee_email:
+	# 		return
 
-		parent_doc = frappe.get_doc("Leave Application", self.name)
-		args = parent_doc.as_dict()
+	# 	parent_doc = frappe.get_doc("Leave Application", self.name)
+	# 	args = parent_doc.as_dict()
 
-		template = frappe.db.get_single_value("HR Settings", "leave_status_notification_template")
-		if not template:
-			frappe.msgprint(_("Please set default template for Leave Status Notification in HR Settings."))
-			return
-		email_template = frappe.get_doc("Email Template", template)
-		subject = frappe.render_template(email_template.subject, args)
-		message = frappe.render_template(email_template.response_, args)
+	# 	template = frappe.db.get_single_value("HR Settings", "leave_status_notification_template")
+	# 	if not template:
+	# 		frappe.msgprint(_("Please set default template for Leave Status Notification in HR Settings."))
+	# 		return
+	# 	email_template = frappe.get_doc("Email Template", template)
+	# 	subject = frappe.render_template(email_template.subject, args)
+	# 	message = frappe.render_template(email_template.response_, args)
 
-		self.notify(
-			{
-				# for post in messages
-				"message": message,
-				"message_to": employee_email,
-				# for email
-				"subject": subject,
-				"notify": "employee",
-			}
-		)
+	# 	self.notify(
+	# 		{
+	# 			# for post in messages
+	# 			"message": message,
+	# 			"message_to": employee_email,
+	# 			# for email
+	# 			"subject": subject,
+	# 			"notify": "employee",
+	# 		}
+	# 	)
 
-	def notify_leave_approver(self):
-		if self.leave_approver:
-			parent_doc = frappe.get_doc("Leave Application", self.name)
-			args = parent_doc.as_dict()
+	# def notify_leave_approver(self):
+	# 	if self.leave_approver:
+	# 		parent_doc = frappe.get_doc("Leave Application", self.name)
+	# 		args = parent_doc.as_dict()
 
-			template = frappe.db.get_single_value("HR Settings", "leave_approval_notification_template")
-			if not template:
-				frappe.msgprint(
-					_("Please set default template for Leave Approval Notification in HR Settings.")
-				)
-				return
-			email_template = frappe.get_doc("Email Template", template)
-			subject = frappe.render_template(email_template.subject, args)
-			message = frappe.render_template(email_template.response_, args)
+	# 		template = frappe.db.get_single_value("HR Settings", "leave_approval_notification_template")
+	# 		if not template:
+	# 			frappe.msgprint(
+	# 				_("Please set default template for Leave Approval Notification in HR Settings.")
+	# 			)
+	# 			return
+	# 		email_template = frappe.get_doc("Email Template", template)
+	# 		subject = frappe.render_template(email_template.subject, args)
+	# 		message = frappe.render_template(email_template.response_, args)
 
-			self.notify(
-				{
-					# for post in messages
-					"message": message,
-					"message_to": self.leave_approver,
-					# for email
-					"subject": subject,
-				}
-			)
+	# 		self.notify(
+	# 			{
+	# 				# for post in messages
+	# 				"message": message,
+	# 				"message_to": self.leave_approver,
+	# 				# for email
+	# 				"subject": subject,
+	# 			}
+	# 		)
 
-	def notify(self, args):
-		args = frappe._dict(args)
-		# args -> message, message_to, subject
-		if cint(self.follow_via_email):
-			contact = args.message_to
-			if not isinstance(contact, list):
-				if not args.notify == "employee":
-					contact = frappe.get_doc("User", contact).email or contact
+	# def notify(self, args):
+	# 	args = frappe._dict(args)
+	# 	# args -> message, message_to, subject
+	# 	if cint(self.follow_via_email):
+	# 		contact = args.message_to
+	# 		if not isinstance(contact, list):
+	# 			if not args.notify == "employee":
+	# 				contact = frappe.get_doc("User", contact).email or contact
 
-			sender = dict()
-			sender["email"] = frappe.get_doc("User", frappe.session.user).email
-			sender["full_name"] = get_fullname(sender["email"])
+	# 		sender = dict()
+	# 		sender["email"] = frappe.get_doc("User", frappe.session.user).email
+	# 		sender["full_name"] = get_fullname(sender["email"])
 
-			try:
-				frappe.sendmail(
-					recipients=contact,
-					sender=sender["email"],
-					subject=args.subject,
-					message=args.message,
-				)
-				frappe.msgprint(_("Email sent to {0}").format(contact))
-			except frappe.OutgoingEmailError:
-				pass
+	# 		try:
+	# 			frappe.sendmail(
+	# 				recipients=contact,
+	# 				sender=sender["email"],
+	# 				subject=args.subject,
+	# 				message=args.message,
+	# 			)
+	# 			frappe.msgprint(_("Email sent to {0}").format(contact))
+	# 		except frappe.OutgoingEmailError:
+	# 			pass
 
 	def create_leave_ledger_entry(self, submit=True):
 		if self.status != "Approved" and submit:
@@ -831,23 +836,23 @@ class LeaveApplication(Document, PWANotificationsMixin):
 				args.update(dict(from_date=start_date, to_date=self.to_date, leaves=leaves * -1))
 				create_leave_ledger_entry(self, args, submit)
 
-	def validate_for_self_approval(self):
-		self_leave_approval_not_allowed = frappe.db.get_single_value(
-			"HR Settings", "prevent_self_leave_approval"
-		)
-		employee_user = frappe.db.get_value("Employee", self.employee, "user_id")
-		if (
-			self_leave_approval_not_allowed
-			and employee_user == frappe.session.user
-			and not get_workflow_name("Leave Application")
-		):
-			frappe.throw(_("Self-approval for leaves is not allowed"))
+	# def validate_for_self_approval(self):
+	# 	self_leave_approval_not_allowed = frappe.db.get_single_value(
+	# 		"HR Settings", "prevent_self_leave_approval"
+	# 	)
+	# 	employee_user = frappe.db.get_value("Employee", self.employee, "user_id")
+	# 	if (
+	# 		self_leave_approval_not_allowed
+	# 		and employee_user == frappe.session.user
+	# 		and not get_workflow_name("Leave Application")
+	# 	):
+	# 		frappe.throw(_("Self-approval for leaves is not allowed"))
 
-	def onload(self):
-		self.set_onload(
-			"self_leave_approval_not_allowed",
-			frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval"),
-		)
+	# def onload(self):
+	# 	self.set_onload(
+	# 		"self_leave_approval_not_allowed",
+	# 		frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval"),
+	# 	)
 
 
 def get_allocation_expiry_for_cf_leaves(
@@ -958,10 +963,10 @@ def get_leave_balance_on(
 	:param to_date: future date to check for allocation expiry
 	:param consider_all_leaves_in_the_allocation_period: consider all leaves taken till the allocation end date
 	:param for_consumption: flag to check if leave balance is required for consumption or display
-	        eg: employee has leave balance = 10 but allocation is expiring in 1 day so employee can only consume 1 leave
-	        in this case leave_balance = 10 but leave_balance_for_consumption = 1
-	        if True, returns a dict eg: {'leave_balance': 10, 'leave_balance_for_consumption': 1}
-	        else, returns leave_balance (in this case 10)
+			eg: employee has leave balance = 10 but allocation is expiring in 1 day so employee can only consume 1 leave
+			in this case leave_balance = 10 but leave_balance_for_consumption = 1
+			if True, returns a dict eg: {'leave_balance': 10, 'leave_balance_for_consumption': 1}
+			else, returns leave_balance (in this case 10)
 	"""
 
 	if not to_date:
