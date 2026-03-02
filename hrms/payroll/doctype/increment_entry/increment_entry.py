@@ -295,6 +295,7 @@ def create_salary_increments_for_employees(employees, args, publish_progress=Tru
 	count=0
 	increment_entry = frappe.get_doc("Increment Entry", args.increment_entry)
 
+
 	for emp in increment_entry.get("employees"):
 		if emp.employee not in salary_increments_exists_for:
 			args.update({
