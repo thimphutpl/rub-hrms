@@ -220,6 +220,7 @@ class PromotionEntry(Document):
 	# 	return cond
 
 	# following method created by SHIV on 2020/10/20
+	
 	def set_month_dates(self):
 		months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 		month = str(int(months.index(self.month_name))+1).rjust(2,"0")
