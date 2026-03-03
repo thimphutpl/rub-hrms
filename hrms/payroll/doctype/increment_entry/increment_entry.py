@@ -128,6 +128,7 @@ class IncrementEntry(Document):
 				"month": self.month_name
 			})
 			if len(emp_list) > 300:
+
 				# frappe.enqueue(create_salary_increments_for_employees, timeout=600, employees=emp_list, args=args)
 				create_salary_increments_for_employees(emp_list, args, publish_progress=False)
 			else:
@@ -300,14 +301,18 @@ def create_salary_increments_for_employees(employees, args, publish_progress=Tru
 		if emp.employee not in salary_increments_exists_for:
 			args.update({
 				"doctype": "Salary Increment",
-				"employee": emp.employee
+				"employee": emp.employee,
 			})
 			si = frappe.get_doc(args)
 			si.get_employee_payscale()
+			si.old_basic = emp.current_basic_pay
+			si.increment = emp.increment
+			si.new_basic = emp.new_basic_pay
 			si.insert()
 			count+=1
 
 			ied = frappe.get_doc("Increment Employee Detail", emp.name)
+			frappe.msgprint(frappe.as_json(ied))
 			ied.db_set("salary_increment", si.name)
 			if publish_progress:
 				frappe.publish_progress(count*100/len(set(employees) - set(salary_increments_exists_for)),
