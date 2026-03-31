@@ -192,7 +192,9 @@
    "fetch_from": "employee.company",
    "fieldname": "company",
    "fieldtype": "Link",
-   "label": "Company",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "College",
    "options": "Company",
    "read_only": 1,
    "remember_last_selected_value": 1,
@@ -255,7 +257,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2024-04-08 13:56:03.818019",
+ "modified": "2026-03-30 11:50:38.481135",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Application",
@@ -283,7 +285,6 @@
    "read": 1,
    "report": 1,
    "role": "HR Manager",
-   "set_user_permissions": 1,
    "share": 1,
    "submit": 1,
    "write": 1
@@ -303,7 +304,6 @@
    "read": 1,
    "report": 1,
    "role": "HR User",
-   "set_user_permissions": 1,
    "share": 1,
    "submit": 1,
    "write": 1
@@ -347,6 +347,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "employee,employee_name,leave_type,from_date,to_date,total_leave_days",
  "sort_field": "modified",
  "sort_order": "DESC",

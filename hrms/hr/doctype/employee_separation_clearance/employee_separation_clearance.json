@@ -1,0 +1,417 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-15 14:05:41.445918",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+    "posting_date",
+    "document_no",
+    "sb_emp_details",
+    "employee",
+    "grade",
+    "cid",
+    "cb_01",
+    "employee_name",
+    "designation",
+    "sb_official",
+    "reason_for_resignation",
+    "sb_remarks",
+    "supervisor",
+    "supervisor_clearance",
+    "supervisor_remarks",
+    "hr",
+    "hr_clearance",
+    "hr_remarks",
+    "fad",
+    "fad_clearance",
+    "fad_remarks",
+    "tdg",
+    "tdg_clearance",
+    "tdg_remarks",
+    "edg",
+    "edg_clearance",
+    "edg_remarks",
+    "column_break_29",
+    "td",
+    "td_clearance",
+    "td_remarks",
+    "smli",
+    "smli_clearance",
+    "smli_remarks",
+    "ped",
+    "ped_clearance",
+    "ped_remarks",
+    "pmb",
+    "pmb_clearance",
+    "pmb_remarks",
+    "sb_reference",
+    "mail_sent",
+    "approvers_set",
+    "employee_separation_id",
+    "column_break_edas",
+    "workflow_state",
+    "amended_from"
+   ],
+   "fields": [
+    {
+     "fieldname": "sb_emp_details",
+     "fieldtype": "Section Break",
+     "label": "Employee Details"
+    },
+    {
+     "fieldname": "employee",
+     "fieldtype": "Link",
+     "label": "Employee",
+     "options": "Employee"
+    },
+    {
+     "fetch_from": "employee.designation",
+     "fieldname": "designation",
+     "fieldtype": "Link",
+     "in_list_view": 1,
+     "label": "Designation",
+     "options": "Designation"
+    },
+    {
+     "fieldname": "cb_01",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fetch_from": "employee.employee_name",
+     "fieldname": "employee_name",
+     "fieldtype": "Data",
+     "in_list_view": 1,
+     "label": "Employee Name"
+    },
+    {
+     "fieldname": "employee_separation_id",
+     "fieldtype": "Data",
+     "label": "Employee Separation ID",
+     "read_only": 1
+    },
+    {
+     "fetch_from": "employee.grade",
+     "fieldname": "grade",
+     "fieldtype": "Link",
+     "label": "Grade",
+     "options": "Employee Grade"
+    },
+    {
+     "fieldname": "reason_for_resignation",
+     "fieldtype": "Select",
+     "label": "Separation Type",
+     "options": "\nVoluntary Resignation\nSuperannuation\nLay-off or Compulsory Retirement\nEarly Retirement Scheme\nTermination without Benefits\nDemise\nEnd of Deputation\nProbation not completed successfully\nEnd of Contract\ntest",
+     "read_only": 1
+    },
+    {
+     "fieldname": "sb_official",
+     "fieldtype": "Section Break"
+    },
+    {
+     "default": "Today",
+     "fieldname": "posting_date",
+     "fieldtype": "Date",
+     "label": "Posting Date"
+    },
+    {
+     "fieldname": "sb_remarks",
+     "fieldtype": "Section Break",
+     "label": "Clearance Section"
+    },
+    {
+     "description": "  ",
+     "fieldname": "amended_from",
+     "fieldtype": "Link",
+     "label": "Amended From",
+     "no_copy": 1,
+     "options": "Employee Separation Clearance",
+     "print_hide": 1,
+     "read_only": 1
+    },
+    {
+     "fieldname": "sb_reference",
+     "fieldtype": "Section Break",
+     "label": "Reference"
+    },
+    {
+     "default": "0",
+     "fieldname": "mail_sent",
+     "fieldtype": "Check",
+     "hidden": 1,
+     "label": "Mail Sent",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "approvers_set",
+     "fieldtype": "Check",
+     "hidden": 1,
+     "label": "Approvers Set",
+     "read_only": 1
+    },
+    {
+     "fetch_from": "employee.passport_number",
+     "fieldname": "cid",
+     "fieldtype": "Data",
+     "label": "CID"
+    },
+    {
+     "allow_on_submit": 1,
+     "fieldname": "document_no",
+     "fieldtype": "Data",
+     "hidden": 1,
+     "label": "Document No.",
+     "read_only": 1
+    },
+    {
+     "fieldname": "column_break_29",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fieldname": "supervisor",
+     "fieldtype": "Link",
+     "label": "Supervisor",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "supervisor_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Supervisor)",
+     "mandatory_depends_on": "frappe.session.user == doc.supervisor",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.supervisor==frappe.session.user",
+     "fieldname": "supervisor_remarks",
+     "fieldtype": "Small Text",
+     "label": "Supervisor's Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.supervisor",
+     "read_only_depends_on": "eval:frappe.session.user != doc.supervisor"
+    },
+    {
+     "fieldname": "workflow_state",
+     "fieldtype": "Link",
+     "label": "Workflow State",
+     "options": "Workflow State"
+    },
+    {
+     "fieldname": "column_break_edas",
+     "fieldtype": "Column Break"
+    },
+    {
+     "fieldname": "hr",
+     "fieldtype": "Link",
+     "label": "HR & Admin Division",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "hr_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (HR & Admin Division)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.gm",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.hr==frappe.session.user",
+     "fieldname": "hr_remarks",
+     "fieldtype": "Small Text",
+     "label": "HR & Admin Division Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.hr",
+     "read_only_depends_on": "eval:frappe.session.user != doc.hr"
+    },
+    {
+     "fieldname": "tdg",
+     "fieldtype": "Link",
+     "label": "Tata Division General Manager",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "tdg_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Tata Division General Manager)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.tdg",
+     "read_only": 1
+    },
+    {
+     "fieldname": "td",
+     "fieldtype": "Link",
+     "label": "Toyota Division",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "td_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Clearance Acquired (Toyota Division)",
+     "mandatory_depends_on": "eval:doc.td==frappe.session.user",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.td==frappe.session.user",
+     "fieldname": "td_remarks",
+     "fieldtype": "Small Text",
+     "label": "Toyota Division Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.td",
+     "read_only_depends_on": "eval:frappe.session.user != doc.td"
+    },
+    {
+     "fieldname": "smli",
+     "fieldtype": "Link",
+     "label": "SMLI & Home Division Manager",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "smli_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (SMLI & Home Division Manager)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.smli",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.smli==frappe.session.user",
+     "fieldname": "smli_remarks",
+     "fieldtype": "Small Text",
+     "label": "SMLI & Home Division Manager Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.smli",
+     "read_only_depends_on": "eval:frappe.session.user != doc.smli"
+    },
+    {
+     "fieldname": "ped",
+     "fieldtype": "Link",
+     "label": "Petroleum Division",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "ped_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Petroleum Division)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.ped",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.ped==frappe.session.user",
+     "fieldname": "ped_remarks",
+     "fieldtype": "Small Text",
+     "label": "Petroleum Division Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.ped",
+     "read_only_depends_on": "eval:frappe.session.user != doc.ped"
+    },
+    {
+     "fieldname": "pmb",
+     "fieldtype": "Link",
+     "label": "Planning Monitoring & Business Development",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "pmb_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Planning Monitoring & Business Development)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.pmb",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:frappe.session.user == doc.pmb",
+     "fieldname": "pmb_remarks",
+     "fieldtype": "Small Text",
+     "label": "Planning Monitoring & Business Development Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.pmb",
+     "read_only_depends_on": "eval:frappe.session.user != doc.pmb"
+    },
+    {
+     "fieldname": "fad",
+     "fieldtype": "Link",
+     "label": "Finance & Accounts Division",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "fad_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Finance & Accounts Division)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.fad",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.fad==frappe.session.user",
+     "fieldname": "fad_remarks",
+     "fieldtype": "Small Text",
+     "label": "Finance & Accounts Division Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.fad",
+     "read_only_depends_on": "eval:frappe.session.user != doc.fad"
+    },
+    {
+     "depends_on": "eval:doc.tdg==frappe.session.user",
+     "fieldname": "tdg_remarks",
+     "fieldtype": "Small Text",
+     "label": "Tata Division General Manager Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.tdg",
+     "read_only_depends_on": "eval:frappe.session.user != doc.tdg"
+    },
+    {
+     "fieldname": "edg",
+     "fieldtype": "Link",
+     "label": "Eicher Division General Manager",
+     "options": "User",
+     "read_only": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "edg_clearance",
+     "fieldtype": "Check",
+     "label": "Clearance Acquired (Eicher Division General Manager)",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.edg",
+     "read_only": 1
+    },
+    {
+     "depends_on": "eval:doc.edg==frappe.session.user",
+     "fieldname": "edg_remarks",
+     "fieldtype": "Small Text",
+     "label": "Eicher Division General Manager Remarks",
+     "mandatory_depends_on": "eval:frappe.session.user == doc.edg",
+     "read_only_depends_on": "eval:frappe.session.user != doc.edg"
+    }
+   ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-15 14:05:41.445918",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Employee Separation Clearance",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -84,6 +84,7 @@ class LeaveAdjustment(Document):
 		allocation.from_date = date
 		allocation.unused_leaves = 0
 		if self.docstatus != 2:
+			# frappe.throw(str(adjusted_leave))
 			allocation.create_leave_ledger_entry(is_adjusted_leave=adjusted_leave, leave_adjustment = adjustment_id)
 		else:
 			allocation.create_leave_ledger_entry(is_adjusted_leave=adjusted_leave, leave_adjustment = None)
@@ -92,7 +93,7 @@ class LeaveAdjustment(Document):
 		for a in self.items:
 			a.difference = flt(a.leave_balance) - flt(a.actual_balance)
 
-	@frappe.whitelist
+	@frappe.whitelist()
 	def get_leave_type_info(self, actual_balance):
 		if not self.leave_type:
 			frappe.throw("Please select Leave Type first")
@@ -103,6 +104,8 @@ class LeaveAdjustment(Document):
 	def get_employees(self):
 		self.check_mandatory()
 		query = "select name as employee, employee_name from tabEmployee where status = 'Active' and date_of_joining <= %s"
+		if self.company:
+			query+="and company =\'"+str(self.company)+"\'"
 		if self.branch:
 			query += " and branch = \'"+str(self.branch)+"\'"
 

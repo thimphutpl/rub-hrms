@@ -56,9 +56,18 @@
   "unlink_payment_on_cancellation_of_employee_advance",
   "notification_templates_tab",
   "travel_authorization_section",
-  "travel_claim_approval_notification_template",
+  "travel_authorization_approval_notification_template",
   "column_break_ywbu",
-  "travel_claim_status_notification_template"
+  "travel_authorization_status_notification_template",
+  "leave_application_section",
+  "leave_application_approval_notification_template",
+  "column_break_mvbo",
+  "leave_application_status_notification_template",
+  "ineligible_student_notification",
+  "event_section",
+  "events_approval_notification_template",
+  "column_break_xtdv",
+  "events_status_notification_template"
  ],
  "fields": [
   {
@@ -355,33 +364,82 @@
    "label": "Travel Authorization"
   },
   {
-   "fieldname": "travel_claim_approval_notification_template",
-   "fieldtype": "Link",
-   "label": "Travel Claim Approval Notification Template",
-   "options": "Email Template"
-  },
-  {
    "fieldname": "column_break_ywbu",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "travel_claim_status_notification_template",
-   "fieldtype": "Link",
-   "label": "Travel Claim Status Notification Template",
-   "options": "Email Template"
   },
   {
    "fieldname": "return_day_dsa",
    "fieldtype": "Select",
    "label": "Return Day DSA (%)",
    "options": "\n100\n70\n50\n20\n0"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "event_section",
+   "fieldtype": "Section Break",
+   "label": "Event"
+  },
+  {
+   "fieldname": "column_break_xtdv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "events_approval_notification_template",
+   "fieldtype": "Link",
+   "label": "Event Approval Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "events_status_notification_template",
+   "fieldtype": "Link",
+   "label": "Event Status Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "travel_authorization_approval_notification_template",
+   "fieldtype": "Link",
+   "label": "Travel Authorization Approval Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "travel_authorization_status_notification_template",
+   "fieldtype": "Link",
+   "label": "Travel Authorization Status Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "leave_application_section",
+   "fieldtype": "Section Break",
+   "label": "Leave Application"
+  },
+  {
+   "fieldname": "leave_application_approval_notification_template",
+   "fieldtype": "Link",
+   "label": "Leave Application Approval Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "column_break_mvbo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "leave_application_status_notification_template",
+   "fieldtype": "Link",
+   "label": "Leave Application Status Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "ineligible_student_notification",
+   "fieldtype": "Link",
+   "label": "Ineligible Student Notification",
+   "options": "Email Template"
   }
  ],
  "icon": "fa fa-cog",
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-02-23 21:28:15.424022",
+ "modified": "2026-03-25 14:34:35.985253",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "HR Settings",

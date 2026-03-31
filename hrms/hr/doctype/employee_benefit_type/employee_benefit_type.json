@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-15 14:20:47.147415",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+    "benefit_type",
+    "read_only_2",
+    "gl_account",
+    "tax_applicable"
+   ],
+   "fields": [
+    {
+     "fieldname": "benefit_type",
+     "fieldtype": "Data",
+     "in_list_view": 1,
+     "label": "Benefit Type",
+     "reqd": 1,
+     "unique": 1
+    },
+    {
+     "fieldname": "read_only_2",
+     "fieldtype": "Read Only",
+     "options": "benefit_type"
+    },
+    {
+     "fieldname": "gl_account",
+     "fieldtype": "Link",
+     "in_list_view": 1,
+     "label": "GL Account",
+     "options": "Account",
+     "reqd": 1
+    },
+    {
+     "default": "0",
+     "fieldname": "tax_applicable",
+     "fieldtype": "Check",
+     "label": "Tax Applicable"
+    }
+   ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-15 14:20:47.147415",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Employee Benefit Type",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

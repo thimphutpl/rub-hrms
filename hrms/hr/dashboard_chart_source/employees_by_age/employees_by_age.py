@@ -28,7 +28,7 @@ def get_data(
 
 	employees = frappe.db.get_list(
 		"Employee",
-		filters={"company": filters.get("company"), "status": "Active"},
+		filters={"status": "Active"},
 		pluck="date_of_birth",
 	)
 	age_list = get_age_list(employees)

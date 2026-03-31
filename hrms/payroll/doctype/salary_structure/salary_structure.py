@@ -740,10 +740,24 @@ class SalaryStructure(Document):
 						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
 
 					elif self.get(m['field_name']) and m['name'] == 'SWS':
-						sws_amt = flt(settings.get('sws'))
-						# calc_amt = roundoff(sws_amt)
-						calc_amt = flt(sws_amt)
-						calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
+						manual_amt = flt(self.get(m['field_name']))
+						sws_amt = settings.get('sws')
+
+						if manual_amt:
+							calc_amt = manual_amt   # ✅ PRIORITY
+						elif sws_amt is not None:
+							calc_amt = flt(sws_amt)
+						else:
+							calc_amt = 0
+
+						# sws_amt = flt(settings.get('sws'))
+						# # calc_amt = roundoff(sws_amt)
+						# calc_amt = flt(sws_amt)
+						# if sws_amt:
+						# 	calc_amt = flt(sws_amt) 
+						# else:
+						# 	calc_amt = flt(self.get(m['field_name']))
+						# calc_map.append({'salary_component': m['name'], 'amount': flt(calc_amt)})
 
 					elif self.get(m['field_name']) and m['name'] == 'Health Contribution':
 						health_cont_amt = flt(total_earning)*flt(settings.get("health_contribution"))*0.01

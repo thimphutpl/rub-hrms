@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-30 16:03:14.790628",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "research_event_organized_title",
+  "no_of_staffs_engageds",
+  "no_of_student_engageds",
+  "no_of_external_participants",
+  "venues",
+  "funding_sources",
+  "research_reference"
+ ],
+ "fields": [
+  {
+   "fieldname": "research_event_organized_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title"
+  },
+  {
+   "fieldname": "no_of_staffs_engageds",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No. of staffs engaged"
+  },
+  {
+   "fieldname": "no_of_student_engageds",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No. of student engaged"
+  },
+  {
+   "fieldname": "no_of_external_participants",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No. of External Participants"
+  },
+  {
+   "fieldname": "funding_sources",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Funding Source"
+  },
+  {
+   "fieldname": "venues",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Venue"
+  },
+  {
+   "fieldname": "research_reference",
+   "fieldtype": "Link",
+   "label": "Research Reference",
+   "options": "Research Center Reporting Items"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-31 12:14:59.285755",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Research Event Organized Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

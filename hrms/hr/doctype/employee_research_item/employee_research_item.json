@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-24 12:55:58.567850",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fiscal_year",
+  "title",
+  "publisher",
+  "website_link",
+  "research_reference"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title"
+  },
+  {
+   "fieldname": "publisher",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Publisher"
+  },
+  {
+   "fieldname": "website_link",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Website Link"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "research_reference",
+   "fieldtype": "Link",
+   "label": "Research Reference",
+   "options": "Research Center Reporting Items"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-31 12:11:22.067516",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Employee Research Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -72,6 +72,7 @@
   {
    "fieldname": "employee_separation_template",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employee Separation Template",
    "options": "Employee Separation Template"
   },
@@ -125,6 +126,7 @@
    "allow_on_submit": 1,
    "fieldname": "activities",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Activities",
    "options": "Employee Boarding Activity"
   },
@@ -155,10 +157,11 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-07-30 14:03:51.218791",
- "modified_by": "Administrator",
+ "modified": "2026-01-15 13:58:49.361647",
+ "modified_by": "sonam.zangmo@thimphutechpark.bt",
  "module": "HR",
  "name": "Employee Separation",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -178,8 +181,10 @@
   }
  ],
  "quick_entry": 1,
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "employee_name",
  "track_changes": 1
 }

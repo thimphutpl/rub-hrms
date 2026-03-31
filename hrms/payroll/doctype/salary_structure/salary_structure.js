@@ -69,8 +69,27 @@ frappe.ui.form.on("Salary Structure", {
 	eligible_for_gis: function (frm) {
 		calculate_others(frm);
 	},
-	eligible_for_sws: function (frm) {
-		calculate_others(frm);
+	// eligible_for_sws: function (frm) {
+	// 	calculate_others(frm);
+	// },
+	eligible_for_sws(frm) {
+		if (frm.doc.eligible_for_sws) {
+
+			// Check if already exists
+			let exists = frm.doc.deductions.some(d => d.salary_component === "SWS");
+
+			if (!exists) {
+				let row = frm.add_child('deductions');
+				row.salary_component = "SWS";
+				row.amount = 0;   // user will enter
+				frm.refresh_field('deductions');
+			}
+
+		} else {
+			// Remove SWS row if unchecked
+			frm.doc.deductions = frm.doc.deductions.filter(d => d.salary_component !== "SWS");
+			frm.refresh_field('deductions');
+		}
 	},
 	eligible_for_health_contribution: function (frm) {
 		calculate_others(frm);
