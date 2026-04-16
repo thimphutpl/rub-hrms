@@ -44,7 +44,7 @@
    "fieldname": "company",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Company",
+   "label": "College",
    "options": "Company",
    "reqd": 1
   },
@@ -56,7 +56,7 @@
   }
  ],
  "links": [],
- "modified": "2022-01-13 13:28:12.951025",
+ "modified": "2026-04-01 15:20:25.422137",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Period",
@@ -100,6 +100,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "from_date, to_date, company",
  "sort_field": "modified",
  "sort_order": "DESC",

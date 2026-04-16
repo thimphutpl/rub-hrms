@@ -67,7 +67,9 @@
   "event_section",
   "events_approval_notification_template",
   "column_break_xtdv",
-  "events_status_notification_template"
+  "events_status_notification_template",
+  "account_notify_section",
+  "account_notify_template"
  ],
  "fields": [
   {
@@ -433,13 +435,24 @@
    "fieldtype": "Link",
    "label": "Ineligible Student Notification",
    "options": "Email Template"
+  },
+  {
+   "fieldname": "account_notify_section",
+   "fieldtype": "Section Break",
+   "label": "Account Notify"
+  },
+  {
+   "fieldname": "account_notify_template",
+   "fieldtype": "Link",
+   "label": "Account Notify Template",
+   "options": "Email Template"
   }
  ],
  "icon": "fa fa-cog",
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-03-25 14:34:35.985253",
+ "modified": "2026-04-15 16:14:11.102910",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "HR Settings",
