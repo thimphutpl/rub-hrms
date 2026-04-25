@@ -71,7 +71,19 @@ frappe.ui.form.on("Leave Control Panel", {
 		frm.trigger("get_employees");
 	},
 
+	// leave_period(frm) {
+	// 	frm.trigger("get_employees");
+	// },
+
 	leave_period(frm) {
+		if (frm.doc.leave_period) {
+			// When leave period is selected, auto-set company from leave period
+			frappe.db.get_value("Leave Period", frm.doc.leave_period, "company", (r) => {
+				if (r.company) {
+					frm.set_value("company", r.company);
+				}
+			});
+		}
 		frm.trigger("get_employees");
 	},
 

@@ -8,6 +8,7 @@
   "allocate_leaves_section",
   "dates_based_on",
   "leave_period",
+  "company",
   "from_date",
   "to_date",
   "carry_forward",
@@ -17,7 +18,6 @@
   "leave_type",
   "no_of_days",
   "quick_filters_section",
-  "company",
   "branch",
   "department",
   "column_break1",
@@ -33,13 +33,15 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
-   "label": "Company",
+   "label": "College",
    "options": "Company",
+   "read_only": 1,
    "remember_last_selected_value": 1
   },
   {
    "fieldname": "employment_type",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Employment Type",
    "options": "Employment Type"
@@ -47,6 +49,7 @@
   {
    "fieldname": "branch",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Branch",
    "options": "Branch"
@@ -54,6 +57,7 @@
   {
    "fieldname": "department",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Department",
    "options": "Department"
@@ -61,6 +65,7 @@
   {
    "fieldname": "designation",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Designation",
    "options": "Designation"
@@ -68,6 +73,7 @@
   {
    "fieldname": "employee_grade",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employee Grade",
    "options": "Employee Grade"
   },
@@ -167,6 +173,7 @@
    "collapsible": 1,
    "fieldname": "advanced_filters_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Advanced Filters"
   },
   {
@@ -175,10 +182,8 @@
    "label": "Filter List"
   },
   {
-   "collapsible": 1,
    "fieldname": "quick_filters_section",
-   "fieldtype": "Section Break",
-   "label": "Quick Filters"
+   "fieldtype": "Section Break"
   }
  ],
  "hide_toolbar": 1,
@@ -186,7 +191,7 @@
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-01-13 13:47:55.262534",
+ "modified": "2026-04-25 16:41:39.939942",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Control Panel",
@@ -199,6 +204,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": []
