@@ -156,10 +156,12 @@
   {
    "fieldname": "leave_approver",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Leave Approver",
-   "options": "User"
+   "options": "Employee"
   },
   {
+   "fetch_from": "employee.employee_name",
    "fieldname": "leave_approver_name",
    "fieldtype": "Data",
    "label": "Leave Approver Name",
@@ -191,11 +193,10 @@
   {
    "fetch_from": "employee.company",
    "fieldname": "company",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "College",
-   "options": "Company",
    "read_only": 1,
    "remember_last_selected_value": 1,
    "reqd": 1
@@ -249,6 +250,7 @@
    "collapsible": 1,
    "fieldname": "sb_other_details",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Other Details"
   }
  ],
@@ -257,7 +259,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2026-03-30 11:50:38.481135",
+ "modified": "2026-04-26 18:02:19.212844",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Application",
@@ -316,7 +318,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Leave Approver",
+   "role": "Approver",
    "share": 1,
    "submit": 1,
    "write": 1
@@ -325,7 +327,7 @@
    "permlevel": 1,
    "read": 1,
    "report": 1,
-   "role": "Leave Approver",
+   "role": "Approver",
    "write": 1
   },
   {

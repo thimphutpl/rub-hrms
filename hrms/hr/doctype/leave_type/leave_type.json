@@ -23,6 +23,13 @@
   "allow_over_allocation",
   "include_holiday",
   "is_compensatory",
+  "applicable_occupation_section",
+  "column_break_wehs",
+  "academics",
+  "column_break_zced",
+  "administrative",
+  "column_break_qsia",
+  "technical",
   "carry_forward_section",
   "maximum_carry_forwarded_leaves",
   "expire_carry_forwarded_leaves_after_days",
@@ -237,12 +244,50 @@
    "fieldtype": "Select",
    "label": "Applicable Gender",
    "options": "\nAll\nMale\nFemale"
+  },
+  {
+   "fieldname": "applicable_occupation_section",
+   "fieldtype": "Section Break",
+   "label": "Applicable Occupation"
+  },
+  {
+   "default": "0",
+   "fieldname": "academics",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Academics"
+  },
+  {
+   "fieldname": "column_break_zced",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "administrative",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Administrative"
+  },
+  {
+   "fieldname": "column_break_qsia",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "technical",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Technical"
+  },
+  {
+   "fieldname": "column_break_wehs",
+   "fieldtype": "Column Break"
   }
  ],
  "icon": "fa fa-flag",
  "idx": 1,
  "links": [],
- "modified": "2026-02-23 18:47:21.665594",
+ "modified": "2026-04-26 16:36:12.493766",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Type",

@@ -130,11 +130,11 @@ frappe.ui.form.on("Leave Application", {
 		frm.trigger("set_leave_approver");
 	},
 
-	leave_approver: function (frm) {
-		if (frm.doc.leave_approver) {
-			frm.set_value("leave_approver_name", frappe.user.full_name(frm.doc.leave_approver));
-		}
-	},
+	// leave_approver: function (frm) {
+	// 	if (frm.doc.leave_approver) {
+	// 		frm.set_value("leave_approver_name", frappe.user.full_name(frm.doc.leave_approver));
+	// 	}
+	// },
 
 	leave_type: function (frm) {
 		frm.trigger("get_leave_balance");

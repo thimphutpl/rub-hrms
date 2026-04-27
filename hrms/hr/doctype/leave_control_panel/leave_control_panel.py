@@ -244,18 +244,45 @@ class LeaveControlPanel(Document):
 		success, failure = [], []
 		savepoint = "before_allocation_submission"
 
+		leave_type_details = frappe.db.get_value(
+			"Leave Type", 
+			self.leave_type, 
+			["applicable_gender", "academics", "administrative", "technical"], 
+			as_dict=True
+		)
+
 		for employee in employees:
 			try:
 				frappe.db.savepoint(savepoint)
-
-				employee_gender = frappe.db.get_value("Employee", employee, "gender")
-				leave_gender = frappe.db.get_value(
-					"Leave Type", self.leave_type, "applicable_gender"
+				employee_details = frappe.db.get_value(
+					"Employee", 
+					employee, 
+					["gender", "staff_category"], 
+					as_dict=True
 				)
+				employee_gender = employee_details.get("gender")
+				employee_staff_category = employee_details.get("staff_category")
 
-				# 🚫 Skip if gender doesn't match
-				if leave_gender and leave_gender != employee_gender:
-					continue
+				# employee_gender = frappe.db.get_value("Employee", employee, "gender")
+				# leave_gender = frappe.db.get_value(
+				# 	"Leave Type", self.leave_type, "applicable_gender"
+				# )
+
+				# # 🚫 Skip if gender doesn't match
+				# if leave_gender and leave_gender != employee_gender:
+				# 	continue
+				if leave_type_details.applicable_gender and leave_type_details.applicable_gender != "All":
+					if leave_type_details.applicable_gender != employee_gender:
+						continue
+				allowed_categories = []
+				if leave_type_details.get("academics"):
+					allowed_categories.append("Academics")
+				if leave_type_details.get("administrative"):
+					allowed_categories.append("Administrative")
+				if leave_type_details.get("technical"):
+					allowed_categories.append("Technical")	
+				if allowed_categories and employee_staff_category not in allowed_categories:
+					continue	
 
 				allocation = frappe.new_doc("Leave Allocation")
 				allocation.employee = employee
@@ -300,14 +327,35 @@ class LeaveControlPanel(Document):
 		policy_details = frappe.get_all(
 			"Leave Policy Detail",
 			filters={"parent": self.leave_policy},
-			fields=["leave_type", "applicable_gender"],
+			fields=["leave_type"],
 		)
+		for detail in policy_details:
+			leave_type_data = frappe.db.get_value(
+				"Leave Type",
+				detail.leave_type,
+				["applicable_gender", "academics", "administrative", "technical"],
+				as_dict=True
+			)
+			if leave_type_data:
+				detail.applicable_gender = leave_type_data.get("applicable_gender")
+				detail.academics = leave_type_data.get("academics", 0)
+				detail.administrative = leave_type_data.get("administrative", 0)
+				detail.technical = leave_type_data.get("technical", 0)
 
 		for employee in employees:
 			try:
 				frappe.db.savepoint(savepoint)
+				employee_details = frappe.db.get_value(
+					"Employee", 
+					employee, 
+					["gender", "staff_category"], 
+					as_dict=True
+				)
+				
+				employee_gender = employee_details.get("gender")
+				employee_staff_category = employee_details.get("staff_category")
 
-				employee_gender = frappe.db.get_value("Employee", employee, "gender")
+				# employee_gender = frappe.db.get_value("Employee", employee, "gender")
 
 				assignment = frappe.new_doc("Leave Policy Assignment")
 				assignment.employee = employee
@@ -323,13 +371,37 @@ class LeaveControlPanel(Document):
 				assignment.insert()
 				assignment.submit()
 
-				invalid_leave_types = [
-					d.leave_type
-					for d in policy_details
-					if d.applicable_gender 
-					and d.applicable_gender != "All"
-					and d.applicable_gender != employee_gender
-				]
+				# invalid_leave_types = [
+				# 	d.leave_type
+				# 	for d in policy_details
+				# 	if d.applicable_gender 
+				# 	and d.applicable_gender != "All"
+				# 	and d.applicable_gender != employee_gender
+				# ]
+				invalid_leave_types = []
+				for d in policy_details:
+					should_invalidate = False
+					
+					# Check gender condition
+					if d.applicable_gender and d.applicable_gender != "All":
+						if d.applicable_gender != employee_gender:
+							should_invalidate = True
+					
+					# Check staff_category condition against checkboxes
+					allowed_categories = []
+					if d.get("academics"):
+						allowed_categories.append("Academics")
+					if d.get("administrative"):
+						allowed_categories.append("Administrative")
+					if d.get("technical"):
+						allowed_categories.append("Technical")
+					
+					# If any category is checked, employee must match
+					if allowed_categories and employee_staff_category not in allowed_categories:
+						should_invalidate = True
+					
+					if should_invalidate:
+						invalid_leave_types.append(d.leave_type)
 
 				if invalid_leave_types:
 					frappe.db.delete(
@@ -385,7 +457,7 @@ class LeaveControlPanel(Document):
 			if all_employees := frappe.get_list(
 				"Employee",
 				filters=self.get_filters() + advanced_filters,
-				fields=["name", "employee", "employee_name", "company", "department", "date_of_joining"],
+				fields=["name", "employee", "employee_name", "company", "department", "date_of_joining","staff_category"],
 			):
 				return self.get_employees_without_allocations(all_employees, from_date, to_date)
 
