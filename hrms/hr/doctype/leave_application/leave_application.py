@@ -1338,6 +1338,13 @@ def get_approved_leaves_for_period(employee, leave_type, from_date, to_date):
 
 @frappe.whitelist()
 def get_leave_approver(employee):
+	# employee_id = frappe.db.get_value("Employee", employee, "second_approver")
+	# leave_approver = frappe.db.get_value("Employee", employee_id, "user_id")
+	# if not leave_approver:
+	# 	frappe.throw(
+    #         f"Please set a Leave Approver for Employee: {employee} "
+    #     )
+    
 	leave_approver = frappe.db.get_value("Employee", employee, ["second_approver"])
 	if not leave_approver:
 		frappe.throw(
@@ -1357,3 +1364,27 @@ def get_leave_approver(employee):
 
 def on_doctype_update():
 	frappe.db.add_index("Leave Application", ["employee", "from_date", "to_date"])
+
+def get_permission_query_conditions(user):
+    if not user:
+        user = frappe.session.user
+    user_roles = frappe.get_roles(user)
+    if user == "Administrator" or "HR User" in user_roles or "HR Manager" in user_roles:
+        return
+    conditions = f"""
+		(
+			`tabLeave Application`.owner = '{user}'
+			OR
+			EXISTS (
+				SELECT 1 FROM `tabEmployee`
+				WHERE `tabEmployee`.name = `tabLeave Application`.employee
+				AND `tabEmployee`.user_id = '{user}'
+				AND `tabLeave Application`.docstatus != 2
+			)
+
+			OR
+			(`tabLeave Application`.leave_approver = '{user}'
+			 AND `tabLeave Application`.workflow_state NOT IN ('Draft'))
+	"""
+    conditions += ")"
+    return conditions

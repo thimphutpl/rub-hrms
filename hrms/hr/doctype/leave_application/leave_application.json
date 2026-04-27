@@ -158,7 +158,8 @@
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "Leave Approver",
-   "options": "Employee"
+   "options": "User",
+   "read_only": 1
   },
   {
    "fetch_from": "employee.employee_name",
@@ -259,7 +260,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2026-04-26 18:02:19.212844",
+ "modified": "2026-04-27 14:58:09.326642",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Application",
