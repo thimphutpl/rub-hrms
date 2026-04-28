@@ -6,19 +6,46 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "section_break_lbmy"
+  "full_name",
+  "date_of_birth",
+  "cid_no",
+  "benefit_type",
+  "share"
  ],
  "fields": [
   {
-   "fieldname": "section_break_lbmy",
-   "fieldtype": "Section Break"
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full name"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "cid_no",
+   "fieldtype": "Data",
+   "label": "CID No./Passport /Work Permit"
+  },
+  {
+   "fieldname": "benefit_type",
+   "fieldtype": "Select",
+   "label": "Benefit Type",
+   "options": "\nGPF\nGratuity\nPension\nGroup Insurance\nOthers"
+  },
+  {
+   "fieldname": "share",
+   "fieldtype": "Data",
+   "label": "Share (%)",
+   "options": "\nGPF\nGratuity\nPension\nGroup Insurance\nOthers"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-02 12:09:44.634744",
+ "modified": "2026-04-26 11:56:46.062091",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Retirement Benefits Nominees",

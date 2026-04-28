@@ -8,10 +8,18 @@ import json
 import frappe
 from frappe.model.document import Document
 from frappe.utils import getdate
+from frappe.utils import getdate, today
 
 
 class EmployeeAttendanceTool(Document):
-	pass
+	def validate(self):
+		self.validate_from_to_dates()
+
+	def validate_from_to_dates(self):
+		if self.date and getdate(self.date) > getdate(today()):
+			frappe.throw(
+				f"Date {self.date} cannot be in the future. Please select a date on or before {today()}."
+			)
 
 
 @frappe.whitelist()

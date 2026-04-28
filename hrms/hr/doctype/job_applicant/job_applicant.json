@@ -91,6 +91,7 @@
   {
    "fieldname": "section_break_6",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Resume"
   },
   {
@@ -171,11 +172,13 @@
   {
    "fieldname": "details_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Details"
   },
   {
    "fieldname": "source_and_rating_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Source and Rating"
   },
   {
@@ -195,8 +198,8 @@
  "idx": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-16 13:06:05.312255",
- "modified_by": "Administrator",
+ "modified": "2026-04-23 15:47:54.635080",
+ "modified_by": "tshering.dorji@thimphutechpark.bt",
  "module": "HR",
  "name": "Job Applicant",
  "naming_rule": "Expression (old style)",
@@ -214,6 +217,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "applicant_name, email_id, job_title, phone_number",
  "sender_field": "email_id",
  "sort_field": "modified",

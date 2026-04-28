@@ -9,7 +9,7 @@
  "hide_custom": 0,
  "icon": "non-profit",
  "idx": 0,
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Leaves",
  "links": [
   {
@@ -73,34 +73,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Application",
-   "link_count": 2,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Leave Application",
-   "link_count": 0,
-   "link_to": "Leave Application",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Compensatory Leave Request",
-   "link_count": 0,
-   "link_to": "Compensatory Leave Request",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Reports",
    "link_count": 3,
    "onboard": 0,
@@ -140,7 +112,8 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Allocation",
-   "link_count": 4,
+   "link_count": 3,
+   "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
   },
@@ -177,15 +150,34 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Leave Encashment",
+   "label": "Application",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Leave Application",
    "link_count": 0,
-   "link_to": "Leave Encashment",
+   "link_to": "Leave Application",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Leave Adjustment",
+   "link_count": 0,
+   "link_to": "Leave Adjustment",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2025-11-25 18:25:10.971991",
+ "modified": "2026-04-25 17:25:59.002651",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leaves",

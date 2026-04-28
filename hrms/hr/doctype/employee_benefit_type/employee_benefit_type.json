@@ -1,51 +1,54 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:benefit_type",
  "creation": "2026-01-15 14:20:47.147415",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-    "benefit_type",
-    "read_only_2",
-    "gl_account",
-    "tax_applicable"
-   ],
-   "fields": [
-    {
-     "fieldname": "benefit_type",
-     "fieldtype": "Data",
-     "in_list_view": 1,
-     "label": "Benefit Type",
-     "reqd": 1,
-     "unique": 1
-    },
-    {
-     "fieldname": "read_only_2",
-     "fieldtype": "Read Only",
-     "options": "benefit_type"
-    },
-    {
-     "fieldname": "gl_account",
-     "fieldtype": "Link",
-     "in_list_view": 1,
-     "label": "GL Account",
-     "options": "Account",
-     "reqd": 1
-    },
-    {
-     "default": "0",
-     "fieldname": "tax_applicable",
-     "fieldtype": "Check",
-     "label": "Tax Applicable"
-    }
-   ],
+  "company",
+  "benefit_type",
+  "gl_account",
+  "tax_applicable"
+ ],
+ "fields": [
+  {
+   "fieldname": "benefit_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Benefit Type",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "gl_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "GL Account",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "tax_applicable",
+   "fieldtype": "Check",
+   "label": "Tax Applicable"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "College",
+   "options": "Company"
+  }
+ ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-15 14:20:47.147415",
+ "modified": "2026-04-23 22:25:00.430041",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Benefit Type",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-26 11:59:01.778896",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type_of_training",
+  "start_date",
+  "end_date",
+  "location"
+ ],
+ "fields": [
+  {
+   "fieldname": "type_of_training",
+   "fieldtype": "Select",
+   "label": "Type Of Training",
+   "options": "\nBusiness Events & Travels\nShort-Term Training\nLong-Term Training"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "options": "\nBusiness Events & Travels\nShort-Term Training\nLong-Term Training"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "options": "\nBusiness Events & Travels\nShort-Term Training\nLong-Term Training"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "End Location Copy",
+   "options": "\nBusiness Events & Travels\nShort-Term Training\nLong-Term Training"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-26 12:00:51.836385",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Training and Development",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -9,7 +9,7 @@
  "hide_custom": 0,
  "icon": "star",
  "idx": 0,
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Performance",
  "links": [
   {
@@ -173,7 +173,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-11-25 18:25:10.823536",
+ "modified": "2026-04-25 12:48:59.903512",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Performance",

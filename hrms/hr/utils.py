@@ -296,7 +296,8 @@ def get_total_exemption_amount(declarations):
 
 
 @frappe.whitelist()
-def get_leave_period(from_date, to_date, company):
+def get_leave_period(from_date, to_date, company=None):
+	
 	leave_period = frappe.db.sql(
 		"""
 		select name, from_date, to_date

@@ -264,8 +264,15 @@ frappe.ui.form.on("Employee Attendance Tool", {
 			}
 		});
 	},
+	date: function(frm) {
+        if (frm.doc.date && frappe.datetime.get_diff(frm.doc.date, frappe.datetime.get_today()) > 0) {
+            frappe.msgprint(__('Future dates not allowed'));
+            frm.set_value('date', '');
+        }
+    },
 
 	mark_full_day_attendance(frm, employees_to_mark_full_day, employees_to_mark_half_day) {
+ 
 		frappe
 			.call({
 				method: "hrms.hr.doctype.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance",

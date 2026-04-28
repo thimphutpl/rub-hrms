@@ -33,7 +33,8 @@ def execute(filters: Filters | None = None) -> tuple:
 		frappe.throw(_("Please select month and year."))
 
 	if not filters.company:
-		frappe.throw(_("Please select company."))
+		return
+		# frappe.throw(_("Please select company."))
 
 	if filters.company:
 		filters.companies = [filters.company]

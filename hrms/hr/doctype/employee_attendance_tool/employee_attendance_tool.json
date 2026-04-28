@@ -12,12 +12,12 @@
   "early_exit",
   "section_break_ackd",
   "company",
-  "branch",
-  "department",
-  "column_break_bhny",
   "employment_type",
-  "designation",
   "employee_grade",
+  "column_break_bhny",
+  "department",
+  "branch",
+  "designation",
   "get_employees",
   "select_employees_section",
   "unmarked_employee_header",
@@ -52,7 +52,7 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
-   "label": "Company",
+   "label": "College",
    "options": "Company"
   },
   {
@@ -101,24 +101,28 @@
   {
    "fieldname": "shift",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Shift",
    "options": "Shift Type"
   },
   {
    "fieldname": "employment_type",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employment Type",
    "options": "Employment Type"
   },
   {
    "fieldname": "designation",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Designation",
    "options": "Designation"
   },
   {
    "fieldname": "employee_grade",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employee Grade",
    "options": "Employee Grade"
   },
@@ -178,7 +182,7 @@
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-05-26 09:42:36.888216",
+ "modified": "2026-04-28 10:15:13.880598",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Attendance Tool",

@@ -6,19 +6,56 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "section_break_umcs"
+  "employee_disciplinary_record_section",
+  "posting_date",
+  "employee",
+  "column_break_pmhb",
+  "employee_name",
+  "designation"
  ],
  "fields": [
   {
-   "fieldname": "section_break_umcs",
-   "fieldtype": "Section Break"
+   "fieldname": "employee_disciplinary_record_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Disciplinary Record"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_pmhb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Designation"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-02 12:01:11.870177",
+ "modified": "2026-04-26 12:06:30.195170",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Disciplinary Summary",

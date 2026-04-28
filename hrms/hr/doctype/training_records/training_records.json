@@ -6,19 +6,52 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "section_break_imbs"
+  "course_attended",
+  "institude_agency",
+  "section_break_ycbr",
+  "from_date",
+  "column_break_hvgh",
+  "to_date"
  ],
  "fields": [
   {
-   "fieldname": "section_break_imbs",
+   "fieldname": "course_attended",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Course Attended"
+  },
+  {
+   "fieldname": "institude_agency",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Institude/Agency,City and Country"
+  },
+  {
+   "fieldname": "section_break_ycbr",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date"
+  },
+  {
+   "fieldname": "column_break_hvgh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-02 11:58:28.354156",
+ "modified": "2026-04-23 22:18:01.659613",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Training Records",

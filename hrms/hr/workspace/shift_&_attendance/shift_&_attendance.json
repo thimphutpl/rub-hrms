@@ -14,7 +14,7 @@
  "hide_custom": 1,
  "icon": "milestone",
  "idx": 0,
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Shift & Attendance",
  "links": [
   {
@@ -231,7 +231,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-11-25 18:25:10.869958",
+ "modified": "2026-04-25 12:42:16.725055",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift & Attendance",

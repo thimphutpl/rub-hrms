@@ -1,11 +1,6 @@
 {
- "charts": [
-  {
-   "chart_name": "Outgoing Salary",
-   "label": "Outgoing Salary"
-  }
- ],
- "content": "[{\"type\":\"onboarding\",\"data\":{\"onboarding_name\":\"Payroll\",\"col\":12}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Outgoing Salary\",\"col\":12}},{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salary Register\",\"col\":3}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Quick Links\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
+ "charts": [],
+ "content": "[{\"id\":\"hKA0n5t0a2\",\"type\":\"card\",\"data\":{\"card_name\":\"Quick Links\",\"col\":4}},{\"id\":\"yFeHi9Xcho\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
  "creation": "2020-05-27 19:54:23.405607",
  "custom_blocks": [],
  "docstatus": 0,
@@ -39,7 +34,8 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Quick Links",
-   "link_count": 2,
+   "link_count": 3,
+   "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
   },
@@ -62,9 +58,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Salary Structure",
+   "link_count": 0,
+   "link_to": "Salary Structure",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-11-25 18:25:11.504710",
+ "modified": "2026-04-25 15:35:13.655628",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Payroll",
@@ -76,20 +82,6 @@
  "restrict_to_domain": "",
  "roles": [],
  "sequence_id": 26.0,
- "shortcuts": [
-  {
-   "label": "Dashboard",
-   "link_to": "Payroll",
-   "type": "Dashboard"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Salary Register",
-   "link_to": "Salary Register",
-   "report_ref_doctype": "Salary Slip",
-   "type": "Report"
-  }
- ],
+ "shortcuts": [],
  "title": "Payroll"
 }
