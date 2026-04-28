@@ -1338,18 +1338,18 @@ def get_approved_leaves_for_period(employee, leave_type, from_date, to_date):
 
 @frappe.whitelist()
 def get_leave_approver(employee):
-	# employee_id = frappe.db.get_value("Employee", employee, "second_approver")
-	# leave_approver = frappe.db.get_value("Employee", employee_id, "user_id")
-	# if not leave_approver:
-	# 	frappe.throw(
-    #         f"Please set a Leave Approver for Employee: {employee} "
-    #     )
-    
-	leave_approver = frappe.db.get_value("Employee", employee, ["second_approver"])
+	employee_id = frappe.db.get_value("Employee", employee, "second_approver")
+	leave_approver = frappe.db.get_value("Employee", employee_id, "user_id")
 	if not leave_approver:
 		frappe.throw(
             f"Please set a Leave Approver for Employee: {employee} "
         )
+    
+	# leave_approver = frappe.db.get_value("Employee", employee, ["second_approver"])
+	# if not leave_approver:
+	# 	frappe.throw(
+    #         f"Please set a Leave Approver for Employee: {employee} "
+    #     )
     
 
 	# if not leave_approver and department:
