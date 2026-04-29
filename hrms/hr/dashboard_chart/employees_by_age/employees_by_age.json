@@ -2,8 +2,9 @@
  "based_on": "",
  "chart_name": "Employees by Age",
  "chart_type": "Custom",
+ "color": "#449CF0",
  "creation": "2022-08-22 19:07:51.906347",
- "custom_options": "{\n\t\"colors\": [\"#7cd6fd\"],\n\t\"barOptions\": {\"spaceRatio\": 0.5}\n}",
+ "custom_options": "{\n\t\"barOptions\": {\"spaceRatio\": 0.5}\n}",
  "docstatus": 0,
  "doctype": "Dashboard Chart",
  "document_type": "",
@@ -13,8 +14,8 @@
  "idx": 0,
  "is_public": 1,
  "is_standard": 1,
- "last_synced_on": "2026-03-19 13:11:29.761721",
- "modified": "2026-03-19 13:11:43.350536",
+ "last_synced_on": "2026-04-29 09:32:19.023720",
+ "modified": "2026-04-29 09:33:37.920913",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employees by Age",
@@ -24,13 +25,19 @@
  "roles": [
   {
    "role": "HR User"
+  },
+  {
+   "role": "Vice Chancellor"
+  },
+  {
+   "role": "Registrar"
   }
  ],
  "source": "Employees by Age",
  "time_interval": "Yearly",
  "timeseries": 0,
  "timespan": "Last Year",
- "type": "Bar",
+ "type": "Percentage",
  "use_report_chart": 0,
  "value_based_on": "",
  "y_axis": []
