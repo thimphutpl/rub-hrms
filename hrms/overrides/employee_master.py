@@ -26,15 +26,17 @@ class EmployeeMaster(Employee):
 					date_val = datetime.strptime(date_val, "%Y-%m-%d")
 				
 				year_month_day = date_val.strftime("%y%m")
+				company_abbr = frappe.db.get_value("Company", self.company, "abbr")
 				
 				#frappe.throw(str(year_month_day))
 			except IndexError:
 				frappe.throw(_("Date of Joining must be in YYYY-MM-DD format."))
 			
 			#unique_suffix = make_autoname('EMP.##')[3:]
-			naming_series=self.naming_series
+			# naming_series=self.naming_series
+			naming_series = f"{company_abbr}"
 			#x = 
-			#frappe.throw(str(naming_series))
+			# frappe.throw(str(naming_series))
 			new_name = make_autoname(str(naming_series) +year_month_day+ '.###')
 			#frappe.throw(str(new_name))
 			self.employee = self.name = new_name
