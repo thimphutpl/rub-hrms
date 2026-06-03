@@ -86,6 +86,45 @@ def update_employee_work_history(employee, details, date=None, cancel=False):
 
 	return employee
 
+def update_student_promotion_history(student, academic_term, details, date=None, cancel=False):
+	if not details:
+		return student
+
+	if not student.promotion_history and not cancel:
+		student.append(
+			"promotion_history",
+			{
+				"college": student.company,
+				"academic_term": academic_term,
+				"semester": student.semester,
+				"programme": student.programme,
+				"year": student.year,
+			},
+		)
+
+	promotion_history = {}
+	for item in details:
+		field = frappe.get_meta("student").get_field(item.fieldname)
+		if not field:
+			continue
+
+		new_value = item.new if not cancel else item.current
+		new_value = get_formatted_value(new_value, field.fieldtype)
+		setattr(student, item.fieldname, new_value)
+
+		if item.fieldname in ["college", "academic_term", "programme", "semester", "year"]:
+			promotion_history[item.fieldname] = item.new
+
+	if promotion_history and not cancel:
+		student.append("promotion_history", promotion_history)
+
+	if cancel:
+		delete_student_promotion_history(details, student, date)
+
+	# update_to_date_in_work_history(employee, cancel)
+
+	return student
+
 
 def get_formatted_value(value, fieldtype):
 	"""
@@ -133,6 +172,23 @@ def delete_employee_work_history(details, employee, date):
 	if filters:
 		frappe.db.delete("Employee Internal Work History", filters)
 		employee.save()
+
+def delete_student_promotion_history(details, student, date):
+	filters = {}
+	for d in details:
+		for history in student.promotion_history:
+			if d.property == "College" and history.college == d.new:
+				college = d.new
+				filters["college"] = department
+			if d.property == "Academic Term" and history.academic_term == d.new:
+				academic_term = d.new
+				filters["academic_term"] = academic_term
+			if d.property == "Semester" and history.academic_term == d.new:
+				semester = d.new
+				filters["semester"] = semester
+	if filters:
+		frappe.db.delete("Student Promotion History", filters)
+		student.save()
 
 
 def update_to_date_in_work_history(employee, cancel):
