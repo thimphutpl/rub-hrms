@@ -104,7 +104,18 @@ class LeaveApplication(Document, PWANotificationsMixin):
 
 	def on_submit(self):
 		# if self.status in ["Open", "Cancelled"]:
+
 		# 	frappe.throw(_("Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"))
+		if self.workflow_state == "Approved":
+			self.db_set("status", "Approved")
+		elif self.workflow_state == "Rejected":
+			self.db_set("status", "Rejected")
+		if self.status in ["Open", "Cancelled"]:
+			frappe.throw(
+				_(
+					"Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"
+				)
+			)
 		notify_workflow_states(self)
 		self.validate_back_dated_application()
 		self.update_attendance()
@@ -1342,15 +1353,15 @@ def get_leave_approver(employee):
 	leave_approver = frappe.db.get_value("Employee", employee_id, "user_id")
 	if not leave_approver:
 		frappe.throw(
-            f"Please set a Leave Approver for Employee: {employee} "
-        )
-    
+			f"Please set a Leave Approver for Employee: {employee} "
+		)
+	
 	# leave_approver = frappe.db.get_value("Employee", employee, ["second_approver"])
 	# if not leave_approver:
 	# 	frappe.throw(
-    #         f"Please set a Leave Approver for Employee: {employee} "
-    #     )
-    
+	#         f"Please set a Leave Approver for Employee: {employee} "
+	#     )
+	
 
 	# if not leave_approver and department:
 	# 	leave_approver = frappe.db.get_value(
@@ -1366,12 +1377,12 @@ def on_doctype_update():
 	frappe.db.add_index("Leave Application", ["employee", "from_date", "to_date"])
 
 def get_permission_query_conditions(user):
-    if not user:
-        user = frappe.session.user
-    user_roles = frappe.get_roles(user)
-    if user == "Administrator" or "HR User" in user_roles or "HR Manager" in user_roles:
-        return
-    conditions = f"""
+	if not user:
+		user = frappe.session.user
+	user_roles = frappe.get_roles(user)
+	if user == "Administrator" or "HR User" in user_roles or "HR Manager" in user_roles:
+		return
+	conditions = f"""
 		(
 			`tabLeave Application`.owner = '{user}'
 			OR
@@ -1386,5 +1397,5 @@ def get_permission_query_conditions(user):
 			(`tabLeave Application`.leave_approver = '{user}'
 			 AND `tabLeave Application`.workflow_state NOT IN ('Draft'))
 	"""
-    conditions += ")"
-    return conditions
+	conditions += ")"
+	return conditions

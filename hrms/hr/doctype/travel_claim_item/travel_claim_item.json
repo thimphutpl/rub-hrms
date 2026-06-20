@@ -17,6 +17,7 @@
   "halt_at",
   "no_of_days",
   "mileage_details_section",
+  "column_break_rqss",
   "mileage_rate",
   "column_break_fyrg",
   "distance",
@@ -29,7 +30,8 @@
   "column_break_djke",
   "amount",
   "section_break_ppaq",
-  "country"
+  "country",
+  "testing"
  ],
  "fields": [
   {
@@ -135,16 +137,9 @@
    "read_only": 1
   },
   {
-   "collapsible": 1,
    "fieldname": "mileage_details_section",
    "fieldtype": "Section Break",
    "label": "Mileage Details"
-  },
-  {
-   "fieldname": "mileage_rate",
-   "fieldtype": "Select",
-   "label": "Mileage Rate",
-   "options": "16\n8"
   },
   {
    "fieldname": "column_break_fyrg",
@@ -175,17 +170,35 @@
    "label": "Country",
    "options": "Country",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_rqss",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mileage_rate",
+   "fieldtype": "Select",
+   "label": "Mileage Rate",
+   "options": "\n8\n16"
+  },
+  {
+   "fieldname": "testing",
+   "fieldtype": "Link",
+   "label": "Testing",
+   "options": "Country",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-07-08 11:58:11.357288",
+ "modified": "2026-05-21 09:00:04.427043",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Travel Claim Item",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

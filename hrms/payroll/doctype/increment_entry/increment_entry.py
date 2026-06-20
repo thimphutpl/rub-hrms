@@ -312,7 +312,6 @@ def create_salary_increments_for_employees(employees, args, publish_progress=Tru
 			count+=1
 
 			ied = frappe.get_doc("Increment Employee Detail", emp.name)
-			frappe.msgprint(frappe.as_json(ied))
 			ied.db_set("salary_increment", si.name)
 			if publish_progress:
 				frappe.publish_progress(count*100/len(set(employees) - set(salary_increments_exists_for)),

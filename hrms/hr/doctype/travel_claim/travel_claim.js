@@ -2,10 +2,10 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Travel Claim", {
-    onload: function (frm) {
-		let grid = frm.fields_dict['items'].grid;
-        grid.cannot_add_rows = true;
-	},
+    // onload: function (frm) {
+	// 	let grid = frm.fields_dict['items'].grid;
+    //     grid.cannot_add_rows = true;
+	// },
     
 	refresh(frm) {
 		refresh_html(frm);

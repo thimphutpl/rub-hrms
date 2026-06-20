@@ -31,6 +31,16 @@ frappe.ui.form.on("Salary Slip", {
 				query: "erpnext.controllers.queries.employee_query",
 			};
 		});
+		// frm.set_query("letter_head",function(){
+		// 	return{
+		// 		filters:{
+		// 			company:frm.doc.company
+		// 		}
+		// 	}
+		// })
+		  frm.set_query("letter_head", () => ({
+        filters: { company: frm.doc.company }
+    }));
 
 		frm.trigger("set_payment_days_description");
 	},

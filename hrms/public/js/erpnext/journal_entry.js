@@ -8,9 +8,20 @@ frappe.ui.form.on("Journal Entry", {
 			// since salary withholding is linked to salary slip, nested links are also pulled for cancellation
 			frm.ignore_doctypes_on_cancel_all.push("Salary Slip");
 		}
+		frm.set_query("branch",function(){
+
+			return {
+					filters: {
+						//total_sanctioned_amount: [">", 0],
+						//status: ["!=", "Paid"],
+						company: frm.doc.company
+					},
+				};
+		});
 	},
 
 	refresh(frm) {
+		
 		frm.set_query("reference_name", "accounts", function (frm, cdt, cdn) {
 			let jvd = frappe.get_doc(cdt, cdn);
 
