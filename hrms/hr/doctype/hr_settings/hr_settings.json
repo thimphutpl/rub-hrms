@@ -69,7 +69,9 @@
   "column_break_xtdv",
   "events_status_notification_template",
   "account_notify_section",
-  "account_notify_template"
+  "account_notify_template",
+  "column_break_jwah",
+  "supplier_notify_template"
  ],
  "fields": [
   {
@@ -446,13 +448,23 @@
    "fieldtype": "Link",
    "label": "Account Notify Template",
    "options": "Email Template"
+  },
+  {
+   "fieldname": "column_break_jwah",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_notify_template",
+   "fieldtype": "Link",
+   "label": "Supplier Notify Template",
+   "options": "Email Template"
   }
  ],
  "icon": "fa fa-cog",
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-04-15 16:14:11.102910",
+ "modified": "2026-06-30 09:26:18.157128",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "HR Settings",
