@@ -162,7 +162,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "employee.employee_name",
+   "fetch_from": "leave_approver.full_name",
    "fieldname": "leave_approver_name",
    "fieldtype": "Data",
    "label": "Leave Approver Name",
@@ -261,7 +261,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2026-07-02 09:54:27.797230",
+ "modified": "2026-07-10 11:06:59.108771",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Application",
