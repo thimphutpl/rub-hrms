@@ -1,25 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:village_name",
  "creation": "2025-09-02 12:14:16.912972",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_oilk"
+  "village_name"
  ],
  "fields": [
   {
-   "fieldname": "section_break_oilk",
-   "fieldtype": "Section Break"
+   "fieldname": "village_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Village Name",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-02 12:14:16.912972",
+ "modified": "2026-07-16 15:44:51.911603",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Village",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

@@ -1,25 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:gewog_name",
  "creation": "2025-09-02 12:12:55.228648",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_b3uz"
+  "gewog_name"
  ],
  "fields": [
   {
-   "fieldname": "section_break_b3uz",
-   "fieldtype": "Section Break"
+   "fieldname": "gewog_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Gewog Name",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-02 12:12:55.228648",
+ "modified": "2026-07-16 15:45:16.410407",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Gewog",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
