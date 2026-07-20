@@ -101,6 +101,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 	# 	share_doc_with_approver(self, self.leave_approver)
 		self.publish_update()
 		# self.notify_approval_status()
+	
 
 	def on_submit(self):
 		# if self.status in ["Open", "Cancelled"]:
@@ -458,7 +459,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 			select
 				name, leave_type, posting_date, from_date, to_date, total_leave_days, half_day_date
 			from `tabLeave Application`
-			where employee = %(employee)s and docstatus < 2 and status in ('Open', 'Approved')
+			where employee = %(employee)s and docstatus < 2 and  workflow_state NOT IN ('Rejected', 'Cancelled')
 			and to_date >= %(from_date)s and from_date <= %(to_date)s
 			and name != %(name)s""",
 			{
