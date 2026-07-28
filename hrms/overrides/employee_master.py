@@ -26,8 +26,7 @@ class EmployeeMaster(Employee):
 					date_val = datetime.strptime(date_val, "%Y-%m-%d")
 				
 				year_month_day = date_val.strftime("%y%m")
-				# company_abbr = frappe.db.get_value("Company", self.company, "abbr")
-				company_abbr = "RUB"
+				company_abbr = frappe.db.get_value("Company", self.company, "abbr")
 				
 				#frappe.throw(str(year_month_day))
 			except IndexError:
