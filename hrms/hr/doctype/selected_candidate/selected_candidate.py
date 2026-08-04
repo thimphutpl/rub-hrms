@@ -225,7 +225,7 @@ def get_token():
 		headers = {
 			'Content-Type': 'application/json'
 		}
-		response = requests.post(url, json=payload, headers=headers, timeout=10,   verify=False )
+		response = requests.post(url, json=payload, headers=headers,  timeout=(30,60),   verify=False )
 		
 		if response.status_code == 200:
 			try:
