@@ -38,7 +38,7 @@ class SelectedCandidate(Document):
 			
 			headers = {
 				'Content-Type': 'application/json',
-				'Authorization': 'Bearer ' + token
+                "Authorization": f"Bearer {token}"
 			}
 			
 
@@ -99,7 +99,7 @@ def create_employee(source_name, target_doc=None):
 	url = f"{host}/api/erp/integration/selected?userId={user_id}"
 	headers_integration = {
 		'Content-Type': 'application/json',
-		'Authorization': "Bearer "+token
+		"Authorization": f"Bearer {token}"
 	}
 
 	response = requests.get(url, headers=headers_integration,verify=False)
@@ -188,7 +188,7 @@ def update_status(applicant_id, status):
 	token = get_token()
 	headers = {
 		'Content-Type': 'application/json',
-		'Authorization': "Bearer " + token
+		'Authorization': f"Bearer {token}"
 	}
 
 	settings = frappe.get_single('TheGateway Connectivity')
