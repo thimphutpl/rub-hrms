@@ -42,16 +42,15 @@
   },
   {
    "fieldname": "company",
-   "fieldtype": "Data",
-   "label": "Company",
-   "options": "Company",
-   "read_only": 1
+   "fieldtype": "Link",
+   "label": "College",
+   "options": "Company"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-03 14:10:39.332371",
+ "modified": "2026-08-04 09:04:09.400344",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Selected Candidate",

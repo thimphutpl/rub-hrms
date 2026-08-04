@@ -2,6 +2,8 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
+
+# import urllib3
 from frappe.model.document import Document
 import frappe
 import requests
@@ -22,15 +24,28 @@ class SelectedCandidate(Document):
 		token = get_token()
 		settings = frappe.get_single('TheGateway Connectivity')
 		host = settings.host.rstrip('/')
-		organization_id = settings.organization_id
+		organization_id = frappe.db.get_value('Company',self.company, 'organization_id')
+		# # frappe.throw(str(host))
+		
+		if not organization_id:
+			frappe.throw(_("Organization ID not found for the company {0}").format(self.company))
+	
+
+	
+		# organization_id = settings.organization_id
 
 		try:
+			
 			headers = {
 				'Content-Type': 'application/json',
 				'Authorization': 'Bearer ' + token
 			}
+			
+
 			url = f"{host}/api/erp/integration/organization?organization={organization_id}"
-			response = requests.get(url, headers=headers)
+	
+			response = requests.get(url, headers=headers, verify=False)
+			# frappe.throw(str(response))
 			if response.status_code == 200:
 				data = response.json()  # parse JSON response
 				# clear the existing list first
@@ -54,16 +69,18 @@ class SelectedCandidate(Document):
 				except Exception:
 					message = response.text or 'Unknown error'
 				frappe.throw(message)
-		except requests.exceptions.RequestException:
-			frappe.throw(_("Unable to connect to TheGateway"), title="Connection Failure")
+		except requests.exceptions.RequestException as e:
+			frappe.throw(
+				_("Unable to connect to TheGateway: {0}").format(str(e))
+			)
 def get_full_name(data):
-    # Extract values, replacing None with empty string
-    first = data.get('firstName') or ''
-    middle = data.get('middleName') or ''
-    last = data.get('lastName') or ''
-    
-    # Join only non-empty parts to avoid extra spaces
-    return " ".join(part for part in [first, middle, last] if part.strip())
+	# Extract values, replacing None with empty string
+	first = data.get('firstName') or ''
+	middle = data.get('middleName') or ''
+	last = data.get('lastName') or ''
+	
+	# Join only non-empty parts to avoid extra spaces
+	return " ".join(part for part in [first, middle, last] if part.strip())
 
 @frappe.whitelist()
 def create_employee(source_name, target_doc=None):
@@ -85,7 +102,7 @@ def create_employee(source_name, target_doc=None):
 		'Authorization': "Bearer "+token
 	}
 
-	response = requests.get(url, headers=headers_integration)
+	response = requests.get(url, headers=headers_integration,verify=False)
 	if response.status_code == 200:
 		val = response.json()  # parse JSON
 		
@@ -165,8 +182,9 @@ def create_employee(source_name, target_doc=None):
 			message = response.text
 		frappe.throw(message)
 
-@ frappe.whitelist()
+@frappe.whitelist()
 def update_status(applicant_id, status):
+	
 	token = get_token()
 	headers = {
 		'Content-Type': 'application/json',
@@ -182,7 +200,7 @@ def update_status(applicant_id, status):
 	if response.status_code == 200:
 		content = response.json()  # parse JSON response
 		message = content.get("message")
-		frappe.msgprint(f"{message}")
+		# frappe.msgprint(f"{message}")
 	else:
 		try:
 			data = response.json()
@@ -194,6 +212,7 @@ def update_status(applicant_id, status):
 @ frappe.whitelist()
 def get_token():
 	try:
+		# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 		settings = frappe.get_single('TheGateway Connectivity')
 		host = settings.host.rstrip('/')
 		url = f"{host}/api/auth/login"
@@ -206,7 +225,7 @@ def get_token():
 		headers = {
 			'Content-Type': 'application/json'
 		}
-		response = requests.post(url, json=payload, headers=headers, timeout=10)
+		response = requests.post(url, json=payload, headers=headers, timeout=10,   verify=False )
 		
 		if response.status_code == 200:
 			try:
