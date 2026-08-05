@@ -105,7 +105,7 @@
    "fetch_from": "employee.company",
    "fieldname": "company",
    "fieldtype": "Link",
-   "label": "Company",
+   "label": "OVC/College",
    "options": "Company"
   },
   {
@@ -202,6 +202,7 @@
    "label": "Approver Detail"
   },
   {
+   "fetch_from": "employee.second_approver",
    "fieldname": "approver",
    "fieldtype": "Link",
    "label": "Approver",
@@ -214,7 +215,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "approver.full_name",
+   "fetch_from": "employee.second_approver_name",
    "fieldname": "approver_name",
    "fieldtype": "Data",
    "label": "Approver Name",
@@ -236,6 +237,7 @@
   {
    "fieldname": "reports_to",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Reports to",
    "options": "User"
   },
@@ -243,6 +245,7 @@
    "fetch_from": "reports_to.full_name",
    "fieldname": "reports_to_name",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Reports to Name"
   },
   {
@@ -282,7 +285,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-18 11:47:07.922313",
+ "modified": "2026-08-05 17:01:41.693772",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Travel Authorization",

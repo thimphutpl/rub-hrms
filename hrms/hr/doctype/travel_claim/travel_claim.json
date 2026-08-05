@@ -97,7 +97,7 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
-   "label": "Company",
+   "label": "OVC/College",
    "options": "Company"
   },
   {
@@ -314,7 +314,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-21 08:24:21.232001",
+ "modified": "2026-08-05 17:02:07.984739",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Travel Claim",
