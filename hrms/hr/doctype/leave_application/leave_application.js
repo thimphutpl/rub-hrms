@@ -13,6 +13,13 @@ frappe.ui.form.on("Leave Application", {
 			};
 		});
 		frm.set_query("employee", erpnext.queries.employee);
+		 frm.set_query("substitution", function() {
+					return {
+						"filters": {
+							"company": frm.doc.company
+						}
+			};
+		});
 	},
 
 	onload: function (frm) {
@@ -85,6 +92,8 @@ frappe.ui.form.on("Leave Application", {
 					filters: [["leave_type_name", "in", allowed_leave_types]],
 				};
 			});
+
+			
 		}
 	},
 

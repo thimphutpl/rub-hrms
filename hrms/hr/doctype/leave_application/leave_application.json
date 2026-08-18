@@ -24,6 +24,8 @@
   "column_break1",
   "description",
   "leave_balance",
+  "substitution",
+  "subsitution__name",
   "section_break_7",
   "leave_approver",
   "leave_approver_name",
@@ -254,6 +256,20 @@
    "fieldtype": "Section Break",
    "hidden": 1,
    "label": "Other Details"
+  },
+  {
+   "depends_on": "eval:doc.employee",
+   "fieldname": "substitution",
+   "fieldtype": "Link",
+   "label": "Substitution",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "substitution.employee_name",
+   "fieldname": "subsitution__name",
+   "fieldtype": "Data",
+   "label": "Subsitution  Name",
+   "read_only": 1
   }
  ],
  "icon": "fa fa-calendar",
@@ -261,7 +277,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2026-07-10 11:06:59.108771",
+ "modified": "2026-08-18 10:18:09.565240",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Application",
