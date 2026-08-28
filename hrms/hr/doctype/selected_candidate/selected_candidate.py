@@ -21,6 +21,8 @@ import datetime
 class SelectedCandidate(Document):
 	@frappe.whitelist()
 	def get_selected_list(self):
+		if not self.company:
+			frappe.throw("Select college first")
 		token = get_token()
 		settings = frappe.get_single('TheGateway Connectivity')
 		host = settings.host.rstrip('/')
@@ -28,7 +30,7 @@ class SelectedCandidate(Document):
 		# # frappe.throw(str(host))
 		
 		if not organization_id:
-			frappe.throw(_("Organization ID not found for the company {0}").format(self.company))
+			frappe.throw(_("Organization ID not found for the college {0}").format(self.company))
 	
 
 	

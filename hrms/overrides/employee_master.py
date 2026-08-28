@@ -12,35 +12,157 @@ from datetime import datetime
 
 
 class EmployeeMaster(Employee):
+	# def autoname(self):
+	# 	if self.old_id:
+	# 		self.employee = self.name = self.old_id
+	# 		return
+
+	# 	if not self.date_of_joining:
+	# 		frappe.throw(
+	# 			_("Date of Joining is required to generate a new Employee ID.")
+	# 		)
+
+	# 	try:
+	# 		date_val = frappe.utils.getdate(self.date_of_joining)
+	# 		joining_date = date_val.strftime("%Y-%m-%d")
+
+	# 		fiscal_year = frappe.db.get_value(
+	# 			"Fiscal Year",
+	# 			{
+	# 				"year_start_date": ["<=", joining_date],
+	# 				"year_end_date": [">=", joining_date],
+	# 			},
+	# 			["name", "year_start_date"],
+	# 			order_by="year_start_date desc",
+	# 		)
+
+	# 		if not fiscal_year:
+	# 			frappe.throw(
+	# 				_("No Fiscal Year found for Date of Joining {0}.").format(
+	# 					joining_date
+	# 				)
+	# 			)
+
+	# 		fiscal_start_date = frappe.utils.getdate(fiscal_year[1])
+
+	# 		fiscal_year_code = fiscal_start_date.strftime("%y")
+	# 		month_code = date_val.strftime("%m")
+
+	# 		prefix = f"RUB{fiscal_year_code}{month_code}"
+
+	# 		# Find the highest existing serial for this FY + month
+	# 		last_serial = frappe.db.sql(
+	# 			"""
+	# 			SELECT MAX(
+	# 				CAST(SUBSTRING(name, %s) AS UNSIGNED)
+	# 			)
+	# 			FROM `tabEmployee`
+	# 			WHERE name LIKE %s
+	# 			""",
+	# 			(
+	# 				len(prefix) + 1,
+	# 				f"{prefix}%",
+	# 			),
+	# 		)[0][0]
+
+	# 		if last_serial is None:
+	# 			serial_number = 1
+	# 		else:
+	# 			serial_number = int(last_serial) + 1
+
+	# 		# 001, 002, ... 999, 1000, 1001...
+	# 		serial_number = str(serial_number).zfill(3)
+
+	# 		new_name = f"{prefix}{serial_number}"
+
+	# 		self.employee = self.name = new_name
+
+	# 	except Exception:
+	# 		frappe.log_error(
+	# 			title="Employee ID Generation Error",
+	# 			message=frappe.get_traceback(),
+	# 		)
+
+	# 		frappe.throw(
+	# 			_("Unable to generate Employee ID.")
+	# 		)
 	def autoname(self):
 		if self.old_id:
 			self.employee = self.name = self.old_id
-		else:
-			if not self.date_of_joining:
-				frappe.throw(_("Date of Joining is required to generate a new Employee ID."))
-			try:
-				#year_month_day = self.date_of_joining[:4] + self.date_of_joining[5:7]
-				date_val = self.date_of_joining
+			return
 
-				if isinstance(date_val, str):
-					date_val = datetime.strptime(date_val, "%Y-%m-%d")
-				
-				year_month_day = date_val.strftime("%y%m")
-				company_abbr = frappe.db.get_value("Company", self.company, "abbr")
-				
-				#frappe.throw(str(year_month_day))
-			except IndexError:
-				frappe.throw(_("Date of Joining must be in YYYY-MM-DD format."))
+		if not self.date_of_joining:
+			frappe.throw(
+				_("Date of Joining is required to generate a new Employee ID.")
+			)
+
+		try:
+			date_val = frappe.utils.getdate(self.date_of_joining)
+			joining_date = date_val.strftime("%Y-%m-%d")
+
+			# Get fiscal year for the joining date
+			fiscal_year = frappe.db.get_value(
+				"Fiscal Year",
+				{
+					"year_start_date": ["<=", joining_date],
+					"year_end_date": [">=", joining_date],
+				},
+				"year_start_date",  # Just get the field value directly
+				order_by="year_start_date desc",
+			)
+
+			if not fiscal_year:
+				frappe.throw(
+					_("No Fiscal Year found for Date of Joining {0}.").format(
+						joining_date
+					)
+				)
+
+			# fiscal_year is already the date object, no need to index
+			fiscal_start_date = frappe.utils.getdate(fiscal_year)
 			
-			#unique_suffix = make_autoname('EMP.##')[3:]
-			# naming_series=self.naming_series
-			naming_series = f"{company_abbr}"
-			#x = 
-			# frappe.throw(str(naming_series))
-			new_name = make_autoname(str(naming_series) +year_month_day+ '.###')
-			#frappe.throw(str(new_name))
+			# Get last 2 digits of fiscal year
+			year_code = fiscal_start_date.strftime("%y")
+			
+			# Get 2-digit month from joining date
+			month_code = date_val.strftime("%m")
+			
+			# Build prefix
+			year_prefix = f"RUB{year_code}"
+			prefix = f"{year_prefix}{month_code}"
+			
+			# Find highest serial
+			last_serial = frappe.db.sql(
+				"""
+				SELECT MAX(
+					CAST(SUBSTRING(name, %s) AS UNSIGNED)
+				)
+				FROM `tabEmployee`
+				WHERE name LIKE %s
+				AND LENGTH(name) = %s
+				""",
+				(
+					len(prefix) + 1,
+					f"{prefix}%",
+					len(prefix) + 3,
+				),
+			)[0][0]
+
+			serial_number = 0 if last_serial is None else int(last_serial) + 1
+			serial_number = str(serial_number).zfill(3)
+
+			new_name = f"{prefix}{serial_number}"
+			
 			self.employee = self.name = new_name
 
+		except Exception as e:
+			frappe.log_error(
+				title="Employee ID Generation Error",
+				message=frappe.get_traceback(),
+			)
+			frappe.throw(
+				_("Unable to generate Employee ID. Error: {0}").format(str(e))
+			)
 
 
 def validate_onboarding_process(doc, method=None):
