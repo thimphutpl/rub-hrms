@@ -202,7 +202,6 @@
    "label": "Approver Detail"
   },
   {
-   "fetch_from": "employee.second_approver",
    "fieldname": "approver",
    "fieldtype": "Link",
    "label": "Approver",
@@ -215,7 +214,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "employee.second_approver_name",
    "fieldname": "approver_name",
    "fieldtype": "Data",
    "label": "Approver Name",
@@ -285,7 +283,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-05 17:01:41.693772",
+ "modified": "2026-09-01 14:54:39.992768",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Travel Authorization",
