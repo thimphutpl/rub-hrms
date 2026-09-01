@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+import requests
 from frappe.utils import flt, cint, getdate, date_diff, nowdate
 from frappe.utils.data import get_first_day, get_last_day, add_days
 from erpnext.custom_utils import get_year_start_date, get_year_end_date
@@ -141,10 +142,10 @@ def get_approver(employee):
 	if deg=='Chief Executive Officer':
 
 		approver = frappe.db.get_value("Employee", employee, "user_id")
-		frappe.throw(str(approver))
+
 	else:
 		empid = frappe.db.get_value("Employee", employee, "reports_to")
-		approver = frappe.db.get_value("Employee", empid, "user_id")
+		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
 
 
 	return approver
@@ -164,6 +165,44 @@ def get_reports_to(employee):
 		reports_to = frappe.db.get_value("Employee", empid, "user_id")
 	
 	return reports_to
+
+@frappe.whitelist(allow_guest=True)
+def get_recaptcha_site_key():
+    return frappe.get_doc("System Settings").get_password("site_key")
+
+@frappe.whitelist(allow_guest=True)
+def verify_captcha(response):
+	if not response:
+		return {"verified": False}
+
+	# secret_key = "6Lery8osAAAAAI7iEn06SKmWSVoldHA-KraVV5Xl"
+	secret_key= frappe.get_doc("System Settings").get_password("secret_key")
+	
+
+	try:
+		verification = requests.post(
+			"https://www.google.com/recaptcha/api/siteverify",
+			data={
+				"secret": secret_key,
+				"response": response
+			},
+			timeout=10
+		)
+
+		result = verification.json()
+
+		if result.get("success"):
+			return {"verified": True}
+
+		frappe.log_error(
+			f"reCAPTCHA failed: {result.get('error-codes', [])}",
+			"Captcha"
+		)
+		return {"verified": False}
+
+	except Exception as e:
+		frappe.log_error(f"reCAPTCHA exception: {str(e)}", "Captcha")
+		return {"verified": False}
 # @frappe.whitelist()
 # def get_reports_to(employee):
 	
