@@ -162,22 +162,22 @@ frappe.ui.form.on("Travel Authorization", {
 			},
 		});
 	},
-	// set_reports_to: function (frm) {
-	// 	if (frm.doc.employee) {
-	// 		return frappe.call({
-	// 			method: "hrms.hr.hr_custom_function.get_reports_to",
-	// 			args: {
-	// 				employee: frm.doc.employee,
-	// 			},
-	// 			callback: function (r) {
-	// 				if (r && r.message) {
-	// 					frm.set_value("reports_to", r.message.user_id);
-    //                     frm.set_value( "reports_to_name", r.message.employee_name );
-	// 				}
-	// 			},
-	// 		});
-	// 	}
-	// },
+	set_reports_to: function (frm) {
+		if (frm.doc.employee) {
+			return frappe.call({
+				method: "hrms.hr.hr_custom_function.get_reports_to",
+				args: {
+					employee: frm.doc.employee,
+				},
+				callback: function (r) {
+					if (r && r.message) {
+						frm.set_value("reports_to", r.message.user_id);
+                        frm.set_value( "reports_to_name", r.message.employee_name );
+					}
+				},
+			});
+		}
+	},
 	set_approver: function (frm) {
 		if (frm.doc.employee) {
 			return frappe.call({
