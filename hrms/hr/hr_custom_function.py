@@ -140,11 +140,9 @@ def get_approver(employee):
 	if not deg:
 		frappe.throw("Set designation in employee master")
 	if deg=='Chief Executive Officer':
-
-		approver = frappe.db.get_value("Employee", employee, "user_id")
-
+		# approver = frappe.db.get_value("Employee", employee, "user_id")
+		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
 	else:
-		empid = frappe.db.get_value("Employee", employee, "reports_to")
 		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
 
 
@@ -158,17 +156,21 @@ def get_reports_to(employee):
 		frappe.throw("Set designation in employee master")
 	if deg=='Chief Executive Officer':
 
-		reports_to = frappe.db.get_value("Employee", employee, "user_id")
+		# reports_to = frappe.db.get_value("Employee", employee, "user_id")
+		reports_to = frappe.db.get_value("Employee", employee, ["user_id", "employee_name"], as_dict=True)
 		#frappe.throw(str(approver))
 	else:
-		empid = frappe.db.get_value("Employee", employee, "reports_to")
-		reports_to = frappe.db.get_value("Employee", empid, "user_id")
+		# empid = frappe.db.get_value("Employee", employee, "reports_to")
+		# reports_to = frappe.db.get_value("Employee", empid, "user_id")
+
+	   
+		reports_to = frappe.db.get_value("Employee", employee, ["user_id", "employee_name"], as_dict=True)
 	
 	return reports_to
 
 @frappe.whitelist(allow_guest=True)
 def get_recaptcha_site_key():
-    return frappe.get_doc("System Settings").get_password("site_key")
+	return frappe.get_doc("System Settings").get_password("site_key")
 
 @frappe.whitelist(allow_guest=True)
 def verify_captcha(response):
