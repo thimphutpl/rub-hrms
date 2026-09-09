@@ -261,6 +261,7 @@
    "depends_on": "eval:doc.employee",
    "fieldname": "substitution",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Substitution",
    "options": "Employee"
   },
@@ -277,7 +278,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2026-08-18 10:18:09.565240",
+ "modified": "2026-09-09 13:38:47.418361",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Application",
