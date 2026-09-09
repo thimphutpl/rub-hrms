@@ -17,6 +17,9 @@
   },
   {
    "card": "Employees Relieving (This Quarter)"
+  },
+  {
+   "card": "Leave Approved"
   }
  ],
  "charts": [
@@ -61,10 +64,10 @@
  "dashboard_name": "Human Resource",
  "docstatus": 0,
  "doctype": "Dashboard",
- "idx": 0,
+ "idx": 7,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2026-03-19 13:19:45.591638",
+ "modified": "2026-08-27 16:37:20.605318",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Human Resource",
