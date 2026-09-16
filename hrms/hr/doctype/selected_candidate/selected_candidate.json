@@ -18,8 +18,7 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date",
-   "read_only": 1
+   "label": "Posting Date"
   },
   {
    "fieldname": "get_selected_list",
@@ -50,8 +49,8 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-25 10:41:10.456605",
- "modified_by": "sonam.zangmo@thimphutechpark.bt",
+ "modified": "2026-09-16 15:57:08.472526",
+ "modified_by": "Administrator",
  "module": "HR",
  "name": "Selected Candidate",
  "naming_rule": "Expression (old style)",
