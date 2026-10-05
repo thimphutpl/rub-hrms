@@ -127,7 +127,7 @@ def get_officiating_employee(employee):
 	if officiate:
 		flag = True
 		while flag:
-			temp = frappe.db.sql(qry, {"today": nowdate(), "employee": officiate[0].officiate}, as_dict=True)
+			temp = frappe.db.sql(qry, {"today": nowdate(), "employee": officiate[0].officiating_employee}, as_dict=True)
 			if temp:
 				officiate = temp
 			else:

@@ -1349,29 +1349,13 @@ def get_approved_leaves_for_period(employee, leave_type, from_date, to_date):
 
 
 @frappe.whitelist()
-def get_leave_approver(employee):
-	employee_id = frappe.db.get_value("Employee", employee, "second_approver")
-	leave_approver = frappe.db.get_value("Employee", employee_id, "user_id")
-	if not leave_approver:
-		frappe.throw(
-			f"Please set a Leave Approver for Employee: {employee} "
-		)
-	
-	# leave_approver = frappe.db.get_value("Employee", employee, ["second_approver"])
-	# if not leave_approver:
-	# 	frappe.throw(
-	#         f"Please set a Leave Approver for Employee: {employee} "
-	#     )
-	
+def get_leave_approver(employee, leave_type=None, with_details=0):
+    from erpnext.custom_workflow import get_rub_leave_route
+    from frappe.utils import cint
 
-	# if not leave_approver and department:
-	# 	leave_approver = frappe.db.get_value(
-	# 		"Department Approver",
-	# 		{"parent": department, "parentfield": "leave_approvers", "idx": 1},
-	# 		"approver",
-	# 	)
-
-	return leave_approver
+    frappe.get_doc("Employee", employee).check_permission("read")
+    route = get_rub_leave_route(employee, leave_type)
+    return route if cint(with_details) else route["user"]
 
 
 def on_doctype_update():
