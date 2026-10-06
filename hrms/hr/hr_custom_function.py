@@ -143,7 +143,8 @@ def get_approver(employee):
 		# approver = frappe.db.get_value("Employee", employee, "user_id")
 		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
 	else:
-		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
+		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation","second_approver","second_approver_name"], as_dict=True)
+		
 
 
 	return approver
