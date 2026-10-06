@@ -143,11 +143,14 @@ def get_approver(employee):
 		# approver = frappe.db.get_value("Employee", employee, "user_id")
 		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
 	else:
-		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation","second_approver","second_approver_name"], as_dict=True)
+		approver = frappe.db.get_value("Employee", employee, ["second_approver"], as_dict=True)
+
+		approver_name = frappe.db.get_value("Employee", approver.second_approver, ["user_id", "employee_name","designation"], as_dict=True)
+	
 		
 
 
-	return approver
+	return approver_name
 
 @frappe.whitelist()
 def get_reports_to(employee):

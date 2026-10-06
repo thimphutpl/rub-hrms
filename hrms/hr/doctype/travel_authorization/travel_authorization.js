@@ -187,8 +187,8 @@ frappe.ui.form.on("Travel Authorization", {
 				},
 				callback: function (r) {
 					if (r && r.message) {
-						frm.set_value("approver", r.message.second_approver);
-                        frm.set_value( "approver_name", r.message.second_approver_name );
+						frm.set_value("approver", r.message.user_id);
+                        frm.set_value( "approver_name", r.message.employee_name );
             
 					}
 				},
