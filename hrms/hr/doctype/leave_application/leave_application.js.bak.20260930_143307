@@ -279,7 +279,7 @@ frappe.ui.form.on("Leave Application", {
             frm.doc.leave_type === leave_type && frm.doc.docstatus === 0;
         const set_route = async (route) => {
             const values = {leave_approver: route.user || ""};
-            if (frm.fields_dict.leave_approver_name) values.leave_approver_name = route.employee_name || "";
+            if (frm.fields_dict.leave_approver_name) values.leave_approver_name = route.name || "";
             if (frm.fields_dict.leave_approver_designation) values.leave_approver_designation = route.designation || "";
             await frm.set_value(values);
         };
