@@ -876,7 +876,7 @@ def get_leave_details(employee, leave_type, date, for_salary_slip=False):
 
 	return {
 		"leave_allocation": leave_allocation,
-		"leave_approver": get_leave_approver(employee, leave_type),
+		"leave_approver": get_leave_approver(employee),
 		"lwps": lwp,
 	}
 
