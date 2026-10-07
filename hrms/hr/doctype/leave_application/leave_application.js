@@ -100,9 +100,9 @@ frappe.ui.form.on("Leave Application", {
 
 	refresh: function (frm) {
 		frm.set_df_property("leave_approver", "read_only", 1);
-		if (frm.doc.docstatus === 0 && (!frm.doc.workflow_state || frm.doc.workflow_state === "Draft")) {
-			frm.trigger("set_leave_approver");
-		}
+		// if (frm.doc.docstatus === 0 && (!frm.doc.workflow_state || frm.doc.workflow_state === "Draft")) {
+		// 	frm.trigger("set_leave_approver");
+		// }
 		hrms.leave_utils.add_view_ledger_button(frm);
 		if (frm.is_new()) {
 			frm.trigger("calculate_total_days");
