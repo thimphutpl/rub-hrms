@@ -63,6 +63,7 @@ frappe.ui.form.on("Leave Application", {
 				async: false,
 				args: {
 					employee: frm.doc.employee,
+					leave_type: frm.doc.leave_type,
 					date: frm.doc.from_date || frm.doc.posting_date,
 				},
 				callback: function (r) {

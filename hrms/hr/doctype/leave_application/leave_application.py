@@ -843,7 +843,7 @@ def get_number_of_leave_days(
 
 
 @frappe.whitelist()
-def get_leave_details(employee, date, for_salary_slip=False):
+def get_leave_details(employee, leave_type, date, for_salary_slip=False):
 	allocation_records = get_leave_allocation_records(employee, date)
 	leave_allocation = {}
 	precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
@@ -876,7 +876,7 @@ def get_leave_details(employee, date, for_salary_slip=False):
 
 	return {
 		"leave_allocation": leave_allocation,
-		"leave_approver": get_leave_approver(employee),
+		"leave_approver": get_leave_approver(employee, leave_type),
 		"lwps": lwp,
 	}
 
