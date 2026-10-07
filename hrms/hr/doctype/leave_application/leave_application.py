@@ -1353,7 +1353,7 @@ def get_leave_approver(employee, leave_type=None, with_details=0):
     from erpnext.custom_workflow import get_rub_leave_route
     from frappe.utils import cint
 
-    frappe.get_doc("Employee", employee).check_permission("read")
+    # frappe.get_doc("Employee", employee).check_permission("read")
     route = get_rub_leave_route(employee, leave_type)
     return route if cint(with_details) else route["user"]
 
