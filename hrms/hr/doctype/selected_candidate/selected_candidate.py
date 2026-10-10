@@ -40,7 +40,7 @@ class SelectedCandidate(Document):
 			
 			headers = {
 				'Content-Type': 'application/json',
-                "Authorization": f"Bearer {token}"
+				"Authorization": f"Bearer {token}"
 			}
 			
 
@@ -168,11 +168,18 @@ def create_employee(source_name, target_doc=None):
 				"total_experience": experience.get("noOfExperience"),
 			})
 		doclist.set("external_work_history", experiences)	
+		# frappe.msgprint(
+		# 	msg=f"Unable to connect to TheGateway: {doclist.as_dict()}",
+		# 	title="Success",
+		# 	indicator="green"
+		# )	
+	
 		frappe.msgprint(
-			msg=f"Unable to connect to TheGateway: {doclist.as_dict()}",
+			msg="Employee saved successfully.",
 			title="Success",
 			indicator="green"
-		)	
+		)
+
 		return doclist.as_dict()
 	elif response.status_code == 401:
 		frappe.throw("Unauthorized!")
