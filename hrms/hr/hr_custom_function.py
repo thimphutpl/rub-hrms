@@ -117,11 +117,23 @@ def get_start_end_dates(fiscal_year, month, company=None):
 	return frappe._dict({"start_date": start_date, "end_date": end_date})
 
 
+
+
 def get_officiating_employee(employee):
 	if not employee:
 		frappe.throw("Employee is Mandatory")
 		
-	qry = "select officiating_employee from `tabOfficiating Employee` where docstatus = 1 and revoked != 1 and %(today)s between from_date and to_date and employee = %(employee)s order by creation desc limit 1"
+	#return frappe.db.sql("select officiate from `tabOfficiating Employee` where docstatus = 1 and revoked != 1 and %(today)s between from_date and to_date and employee = %(employee)s order by creation desc limit 1", {"today": nowdate(), "employee": employee}, as_dict=True)
+	qry = """
+		SELECT officiating_employee
+		FROM `tabOfficiating Employee`
+		WHERE docstatus = 1
+			AND revoked != 1
+			AND %(today)s BETWEEN from_date AND to_date
+			AND employee = %(employee)s
+		ORDER BY creation DESC
+		LIMIT 1
+	"""
 	officiate = frappe.db.sql(qry, {"today": nowdate(), "employee": employee}, as_dict=True)
 
 	if officiate:
@@ -136,6 +148,7 @@ def get_officiating_employee(employee):
 
 @frappe.whitelist()
 def get_approver(employee):
+	
 	deg=frappe.db.get_value("Employee", employee, "designation")
 	if not deg:
 		frappe.throw("Set designation in employee master")
@@ -144,8 +157,12 @@ def get_approver(employee):
 		approver = frappe.db.get_value("Employee", employee, ["user_id", "employee_name","designation"], as_dict=True)
 	else:
 		approver = frappe.db.get_value("Employee", employee, ["second_approver"], as_dict=True)
-
-		approver_name = frappe.db.get_value("Employee", approver.second_approver, ["user_id", "employee_name","designation"], as_dict=True)
+		officiating = get_officiating_employee(
+			approver.second_approver)
+		if officiating:
+			approver_name = frappe.db.get_value("Employee", officiating[0].officiating_employee, ["user_id", "employee_name","designation"], as_dict=True)
+		else:
+			approver_name = frappe.db.get_value("Employee", approver.second_approver, ["user_id", "employee_name","designation"], as_dict=True)
 	
 		
 

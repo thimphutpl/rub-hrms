@@ -97,7 +97,18 @@ class TravelClaim(Document):
 		self.set("advances", advances)
 
 	def post_journal_entry(self):
-		travel_expense_account = frappe.db.get_value("Travel Type", self.travel_type, "account")
+		# travel_expense_account = frappe.db.get_value("Travel Type", self.travel_type, "account")
+		travel_expense_account = frappe.get_all(
+			"Travel Type Item",
+			filters={
+				"parent": self.travel_type,
+				"parenttype": "Travel Type",
+				"parentfield": "travel_type_account",
+				"college": self.company
+			},
+			pluck="account"
+		)
+		# frappe.throw(str(travel_expense_account))
 		advance_account = frappe.db.get_value("Company", self.company, "travel_advance_account")
 		bank_account = frappe.db.get_value("Branch", self.branch, "expense_bank_account")
 
@@ -175,16 +186,17 @@ class TravelClaim(Document):
 				"branch": self.branch
 		})
 
-		if self.advance_amount:
-			je.save(ignore_permissions = True)
-			self.db_set("journal_entry", je.name)
-			self.db_set("journal_entry_status", "Forwarded to accounts for processing payment on {0}".format(now_datetime().strftime('%Y-%m-%d %H:%M:%S')))
-			frappe.msgprint(_('{} posted to accounts').format(frappe.get_desk_link(je.doctype, je.name)))
+		# if self.advance_amount:
+		je.save(ignore_permissions = True)
+		self.db_set("journal_entry", je.name)
+		self.db_set("journal_entry_status", "Forwarded to accounts for processing payment on {0}".format(now_datetime().strftime('%Y-%m-%d %H:%M:%S')))
+		frappe.msgprint(_('{} posted to accounts').format(frappe.get_desk_link(je.doctype, je.name)))
 
 
 @frappe.whitelist()
 def get_travel_claim(dt, dn):
 	doc = frappe.get_doc(dt, dn)
+	
 
 	employee_grade = frappe.db.get_value("Employee", doc.employee, "grade")
 	dsa = frappe.db.get_value("Employee Grade", employee_grade, "dsa")
@@ -201,6 +213,7 @@ def get_travel_claim(dt, dn):
 	tc = frappe.new_doc("Travel Claim")
 	tc.posting_date = frappe.utils.nowdate()
 	tc.employee = doc.employee
+	tc.company = doc.company
 	tc.employee_name = doc.employee_name
 	tc.travel_type = doc.travel_type
 	tc.purpose_of_travel = doc.purpose_of_travel
@@ -208,7 +221,8 @@ def get_travel_claim(dt, dn):
 	tc.mode_of_travel = doc.mode_of_travel
 	tc.branch = doc.branch
 	tc.cost_center = doc.cost_center
-
+	tc.approver = doc.approver
+	tc.approver_name = doc.approver_name
 	
 
 	for d in doc.get("items"):

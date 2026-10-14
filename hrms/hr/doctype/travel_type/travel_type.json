@@ -10,7 +10,9 @@
   "description",
   "column_break_ymky",
   "account",
-  "disabled"
+  "disabled",
+  "section_break_rmri",
+  "travel_type_account"
  ],
  "fields": [
   {
@@ -33,6 +35,7 @@
   {
    "fieldname": "account",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Account",
    "options": "Account"
   },
@@ -41,11 +44,21 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "section_break_rmri",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "travel_type_account",
+   "fieldtype": "Table",
+   "label": "Travel Type Account",
+   "options": "Travel Type Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-11 15:02:54.236562",
+ "modified": "2026-10-13 10:12:09.988831",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Travel Type",
@@ -86,6 +99,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

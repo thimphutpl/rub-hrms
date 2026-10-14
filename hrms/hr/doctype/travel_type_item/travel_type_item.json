@@ -1,0 +1,42 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-10-13 09:21:19.911370",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "college",
+  "account"
+ ],
+ "fields": [
+  {
+   "fieldname": "college",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "College",
+   "options": "Company"
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account",
+   "options": "Account"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-13 09:22:50.033454",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Travel Type Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

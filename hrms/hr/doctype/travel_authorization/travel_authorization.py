@@ -292,7 +292,7 @@ class TravelAuthorization(Document):
 					break
 
 			if grade==False:
-				frappe.throw("DSa is not net grade")
+				frappe.throw("DSA is not net grade")
 		
 		
 		
