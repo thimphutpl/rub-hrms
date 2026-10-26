@@ -149,10 +149,10 @@ def create_employee(source_name, target_doc=None):
 			maj_opt_subj = "\n".join(f"{m['subjectName']}: {m['mark']}" for m in marks if 'subjectName' in m and 'mark' in m)
 
 			qualifications.append({
-				"qualification": qualification.get("qualificationType"),
+				"qualification": qualification.get("courseName"),
 				"year_of_passing": int(qualification.get("completionYear").split("-")[0]) if qualification.get("completionYear") else None,
 				"class_per": qualification.get("percentageObtained"),
-				"level": qualification.get("courseName"),
+				"level": qualification.get("qualificationType"),
 				"school_univ": qualification.get("instituteName"),
 				"maj_opt_subj": maj_opt_subj
 			})
